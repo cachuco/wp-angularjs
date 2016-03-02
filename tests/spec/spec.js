@@ -1,7 +1,7 @@
 /**
  * http://pivotal.github.io/jasmine/
  */
-describe("Hello Test", function() {
+describe( "Hello Test", function() {
 
 	it( "test", function() {
 		expect( true ).toEqual( true );
