@@ -1,4 +1,4 @@
-describe( 'have_posts directive', function() {
+describe( 'have-posts directive', function() {
 
 	var $compile,
 		$rootScope;
@@ -10,40 +10,39 @@ describe( 'have_posts directive', function() {
 		$rootScope = _$rootScope_;
 	} ) );
 
-	it( '<have_posts> should be div', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have_posts postType="posts">Hello {{ hello }}</have_posts>' )( $rootScope );
-		$rootScope.$digest();
-		console.log( element );
-		expect( element.prop( 'tagName' ) ).toEqual( 'DIV' );
-	} ) );
-
 	it( '<have-posts> should be div', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts post-type="posts" />' )( $rootScope );
+		var element = $compile( '<have-posts post-type="posts">Post type is {{ postType }}</div>' )( $rootScope );
 		$rootScope.$digest();
 		expect( element.prop( 'tagName' ) ).toEqual( 'DIV' );
 	} ) );
 
-	it( '<have_posts> should have class `posts`', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have_posts post-type="posts" />' )( $rootScope );
+	it( 'Text should be "Post type is posts"', inject( function( $rootScope, $compile ) {
+		var element = $compile( '<have-posts post-type="posts">Post type is {{ postType }}</div>' )( $rootScope );
+		$rootScope.$digest();
+		expect( element.text() ).toEqual( 'Post type is posts' );
+	} ) );
+
+	it( '<have-posts> should have class `posts`', inject( function( $rootScope, $compile ) {
+		var element = $compile( '<have-posts post-type="posts" />' )( $rootScope );
 		$rootScope.$digest();
 		expect( element.hasClass( 'have-posts' ) ).toEqual( true );
 	} ) );
 
-	it( '<have_posts> should have class @postType', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have_posts post-type="pages" />' )( $rootScope );
+	it( '<have-posts> should have class "pages"', inject( function( $rootScope, $compile ) {
+		var element = $compile( '<have-posts post-type="pages" />' )( $rootScope );
 		$rootScope.$digest();
 		expect( element.hasClass( 'pages' ) ).toEqual( true );
 	} ) );
 
 	it( 'postType should be posts', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have_posts post-type="posts" />' )( $rootScope );
+		var element = $compile( '<have-posts post-type="posts" />' )( $rootScope );
 		$rootScope.$digest();
-		expect( $rootScope.$$childTail.postType ).toEqual( 'posts' );
+		expect( $rootScope.postType ).toEqual( 'posts' );
 	} ) );
 
 	it( 'postType should be posts', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have_posts post-id="123" />' )( $rootScope );
+		var element = $compile( '<have-posts post-id="123" />' )( $rootScope );
 		$rootScope.$digest();
-		expect( $rootScope.$$childTail.postId ).toEqual( '123' );
+		expect( $rootScope.postId ).toEqual( '123' );
 	} ) );
 } );
