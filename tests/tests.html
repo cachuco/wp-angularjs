@@ -5,10 +5,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
 <script src="../wp-angular.js"></script>
+<style type="text/css">
+	body
+	{
+		width: 970px;
+		max-width: 95%;
+		margin: 10px auto;
+	}
+	img,
+	.wp-caption
+	{
+		max-width: 100%;
+		height: auto;
+	}
+	article
+	{
+		margin-bottom: 60px;
+	}
+	.entry-title
+	{
+		font-size: 400%;
+		border-bottom: 1px solid #cccccc;
+	}
+</style>
 </head>
 <body>
 <have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts">
-	<h1><the-title /></h1>
+	<div class="post-thumbnail"><the-post-thumbnail size="post-thumbnaiil" /></div>
+	<h1 class="entry-title"><the-title /></h1>
 	<div class="entry-content"><the-content /></div>
 </have-posts>
 

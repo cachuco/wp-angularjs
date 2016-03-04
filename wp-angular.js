@@ -60,6 +60,7 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 wp.directive( "theTitle", [ function() {
 	return{
 		restrict:'E',
+		replace: true,
 		require : '^havePosts',
 		link: function( scope, element ) {
 			element.html( scope.$parent.post.title.rendered );
@@ -70,12 +71,42 @@ wp.directive( "theTitle", [ function() {
 wp.directive( "theContent", [ function() {
 	return{
 		restrict:'E',
+		replace: true,
 		require : '^havePosts',
 		link: function( scope, element ) {
 			element.html( scope.$parent.post.content.rendered );
 		}
 	}
 } ] );
+
+wp.directive( "thePostThumbnail", [ function() {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		link: function( scope, element, attrs ) {
+			if ( ! attrs.size ) {
+				attrs.size = 'post-thumbnail';
+			}
+			var scheme = 'https://api.w.org/featuredmedia';
+			var post = scope.$parent.post;
+			var img;
+			if ( post._embedded && post._embedded[scheme] && post._embedded[scheme].length ) {
+				if ( post._embedded[scheme][0].media_details.sizes[attrs.size] ) {
+					img = post._embedded[scheme][0].media_details.sizes[attrs.size].source_url;
+				} else {
+					img = post._embedded[scheme][0].media_details.sizes['full'].source_url;
+				}
+			}
+			if ( img ) {
+				scope.image_src = img;
+			}
+		},
+		template: "<img ng-src=\"{{ image_src }}\">"
+	}
+} ] );
+
+
 
 
 
