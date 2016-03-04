@@ -16,7 +16,6 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 	return {
 		restrict: "E",
 		replace: true,
-		// multiElement: true,
 		transclude: true,
 		scope: {
 			postType: '@',
@@ -53,7 +52,7 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 				}
 			}
 		},
-		template: "<div class=\"have-posts\"><article class=\"{{ postType }}\" ng-repeat=\"post in posts\"><div ng-transclude></div></article></div>"
+		template: "<div class=\"have-posts\"><article class=\"{{ postType }} post-{{ post.id }}\" ng-repeat=\"post in posts\"><div ng-transclude></div></article></div>"
 	}
 } ] );
 
@@ -84,27 +83,48 @@ wp.directive( "thePostThumbnail", [ function() {
 		restrict:'E',
 		replace: true,
 		require : '^havePosts',
-		link: function( scope, element, attrs ) {
-			if ( ! attrs.size ) {
-				attrs.size = 'post-thumbnail';
-			}
-			var scheme = 'https://api.w.org/featuredmedia';
-			var post = scope.$parent.post;
-			var img;
-			if ( post._embedded && post._embedded[scheme] && post._embedded[scheme].length ) {
-				if ( post._embedded[scheme][0].media_details.sizes[attrs.size] ) {
-					img = post._embedded[scheme][0].media_details.sizes[attrs.size].source_url;
-				} else {
-					img = post._embedded[scheme][0].media_details.sizes['full'].source_url;
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					if ( ! attrs.size ) {
+						attrs.size = 'post-thumbnail';
+					}
+					var scheme = 'https://api.w.org/featuredmedia';
+					var post = scope.$parent.post;
+					var img;
+					if ( post._embedded && post._embedded[scheme] && post._embedded[scheme].length ) {
+						if ( post._embedded[scheme][0].media_details.sizes[attrs.size] ) {
+							img = post._embedded[scheme][0].media_details.sizes[attrs.size].source_url;
+						} else {
+							img = post._embedded[scheme][0].media_details.sizes['full'].source_url;
+						}
+					}
+					if ( img ) {
+						scope.image_src = img;
+					}
 				}
 			}
-			if ( img ) {
-				scope.image_src = img;
-			}
 		},
-		template: "<img ng-src=\"{{ image_src }}\">"
+		template: "<div class=\"the-post-thumbnail\"><img ng-src=\"{{ image_src }}\"></div>"
 	}
 } ] );
+
+wp.directive( "theId", [ function() {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					scope.post_id = scope.$parent.post.id;
+				}
+			}
+		},
+		template: "<div class=\"the-id\">{{ post_id }}</div>"
+	}
+} ] );
+
 
 
 

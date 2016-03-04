@@ -13,16 +13,19 @@ describe( 'have-posts directive', function() {
 		// list of the posts or pages
 		$httpBackend.whenGET( /\/(posts)|(pages)\?/ ).respond( 200, [
 			{
+				id: '123',
 				content: {
 					rendered: 'Hello World(1)'
 				}
 			},
 			{
+				id: '124',
 				content: {
 					rendered: 'Hello World(2)'
 				}
 			},
 			{
+				id: '125',
 				content: {
 					rendered: 'Hello World(3)'
 				}
@@ -97,11 +100,12 @@ describe( 'have-posts directive', function() {
 		expect( $rootScope.$$childTail.postId ).toEqual( '123' );
 	} ) );
 
-	// it( 'content should be parsed', inject( function( $rootScope, $compile ) {
-	// 	var element = $compile( '<have-posts api-root="http://example.com" post-type="posts">this is <the-content /></have-posts>' )( $rootScope );
-	// 	$rootScope.$digest();
-	// 	$httpBackend.flush();
-	// 	console.log( element );
-	// 	expect( element.text() ).toEqual( 'Hello World(1)' );
-	// } ) );
+	it( 'the-id should be like 123', inject( function( $rootScope, $compile ) {
+		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><the-id></the-id></have-posts>' )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		for ( var i = 0; i < element.children().length; i++ ) {
+			expect( angular.element( element.children()[i] ).text() ).toEqual( ( i + 123 ).toString() );
+		}
+	} ) );
 } );

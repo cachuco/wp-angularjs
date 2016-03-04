@@ -7,10 +7,12 @@ This project is in progress...
 It will be able to like following.
 
 ```
-<have-posts api-root="http://example.com/wp-json/wp/v2" post-type="posts">
-	<div class="post-thumbnail"><the-post-thumbnail size="post-thumbnaiil" /></div>
-	<h1 class="entry-title"><the-title /></h1>
-	<div class="entry-content"><the-content /></div>
+<have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts">
+	<the-post-thumbnail data-size="post-thumbnaiil" class="hello"></the-post-thumbnail>
+	<h1 class="entry-title"><the-title></the-title></h1>
+	<div class="entry-content">
+		<the-content></the-content>
+	</div>
 </have-posts>
 ```
 

@@ -1,52 +1,25 @@
+<!DOCTYPE html>
 <html ng-app="wp">
 <head>
-<meta charset="UTF-8">
-<title>WP-Angular</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
-<script src="../wp-angular.js"></script>
-<style type="text/css">
-body
-{
-	width: 970px;
-	max-width: 95%;
-	margin: 10px auto;
-}
-img,
-.wp-caption
-{
-	max-width: 100%;
-	height: auto;
-}
-article
-{
-	margin-bottom: 60px;
-}
-.entry-title
-{
-	font-size: 400%;
-	border-bottom: 1px solid #cccccc;
-}
-.banner
-{
-	background-color: #cccccc;
-	padding: 40px;
-	margin: 0 -40px;
-}
-</style>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<title>WP-Angular</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
+	<script src="../wp-angular.js"></script>
 </head>
 <body>
+
 <div class="banner">
 	<h1>WP-API client powered by AnguarJS</h1>
 	<h2><a href="https://github.com/miya0001/wp-angular">GitHub</a></h2>
 </div>
+
 <have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts">
-	<div class="post-thumbnail">
-		<the-post-thumbnail size="post-thumbnaiil" />
-	</div>
-	<h1 class="entry-title"><the-title /></h1>
+	<the-post-thumbnail data-size="post-thumbnaiil" class="hello"></the-post-thumbnail>
+	<h1 class="entry-title"><the-title></the-title></h1>
 	<div class="entry-content">
-		<the-content />
+		<the-content></the-content>
 	</div>
 </have-posts>
 
