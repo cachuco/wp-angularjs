@@ -66,13 +66,6 @@ describe( 'have-posts directive', function() {
 		expect( element.prop( 'tagName' ) ).toEqual( 'DIV' );
 	} ) );
 
-	it( 'Text should be "Post type is posts"', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts">Post type is {{ postType }}</div>' )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( element.text() ).toEqual( 'Post type is posts' );
-	} ) );
-
 	it( '<have-posts> should have class `posts`', inject( function( $rootScope, $compile ) {
 		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" />' )( $rootScope );
 		$rootScope.$digest();
@@ -104,11 +97,11 @@ describe( 'have-posts directive', function() {
 		expect( $rootScope.$$childTail.postId ).toEqual( '123' );
 	} ) );
 
-	it( 'content should be parsed', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts">this is <the-content /></have-posts>' )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		console.log( element );
-		expect( element.text() ).toEqual( 'Hello World(1)' );
-	} ) );
+	// it( 'content should be parsed', inject( function( $rootScope, $compile ) {
+	// 	var element = $compile( '<have-posts api-root="http://example.com" post-type="posts">this is <the-content /></have-posts>' )( $rootScope );
+	// 	$rootScope.$digest();
+	// 	$httpBackend.flush();
+	// 	console.log( element );
+	// 	expect( element.text() ).toEqual( 'Hello World(1)' );
+	// } ) );
 } );
