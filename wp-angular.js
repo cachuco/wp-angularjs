@@ -13,6 +13,7 @@ wp.factory( 'WP_Query', [ '$resource', function( $resource ){
 } ] );
 
 wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
+	console.log( 'hello' );
 	return {
 		restrict: "E",
 		replace: true,
@@ -53,26 +54,30 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 				}
 			}
 		},
-		template: "<div class=\"have-posts\"><div class=\"{{ postType }}\" ng-repeat=\"post in posts\"><div ng-transclude></div></div></div>"
-	}
-} ] );
-
-wp.directive( "theContent", [ function() {
-	return{
-		restrict:'E',
-		replace: false,
-		template:'{{ $parent.post.content.rendered }}',
-		require : 'havePosts'
+		template: "<div class=\"have-posts\"><article class=\"{{ postType }}\" ng-repeat=\"post in posts\"><div ng-transclude></div></article></div>"
 	}
 } ] );
 
 wp.directive( "theTitle", [ function() {
 	return{
 		restrict:'E',
-		replace: false,
-		template:'{{ $parent.post.title.rendered }}',
-		require : 'havePosts'
+		require : '^havePosts',
+		link: function( scope, element ) {
+			element.html( scope.$parent.post.title.rendered );
+		}
 	}
 } ] );
+
+wp.directive( "theContent", [ function() {
+	return{
+		restrict:'E',
+		require : '^havePosts',
+		link: function( scope, element ) {
+			element.html( scope.$parent.post.content.rendered );
+		}
+	}
+} ] );
+
+
 
 
