@@ -1,3 +1,5 @@
+'use strict';
+
 var wp = angular.module( "wp", [ "ngResource" ] );
 
 wp.factory( 'WP_Query', [ '$resource', function( $resource ){
@@ -23,16 +25,20 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 			apiRoot: '@',
 		},
 		controller: [ '$scope', function( $scope ) {
-			//$rootScope.apiRoot = $scope.apiRoot;
+			// nothing to do, but we need here
 		} ],
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
-				pre: function preLink( scope, iElement, iAttrs, controller ) {
+				pre: function preLink( scope, element, attrs, controller ) {
+					scope.posts = [];
 					if ( scope.postId ) {
 						scope.query = {
 							'endpoint': scope.postType,
 							'id': scope.postId
 						}
+						WP_Query( scope.apiRoot ).get( scope.query ).$promise.then( function( posts ) {
+							scope.posts.push( posts );
+						} );
 					} else {
 						scope.query = {
 							'endpoint': scope.postType,
@@ -42,13 +48,12 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
+						WP_Query( scope.apiRoot ).query( scope.query ).$promise.then( function( posts ) {
+							scope.posts = posts;
+						} );
 					}
-
-					WP_Query( scope.apiRoot ).query( scope.query ).$promise.then( function( posts ) {
-						scope.posts = posts;
-					} );
 				},
-				post: function postLink( scope, iElement, iAttrs, controller ) {
+				post: function postLink( scope, element, attrs, controller ) {
 				}
 			}
 		},
@@ -56,28 +61,92 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 	}
 } ] );
 
-wp.directive( "theTitle", [ function() {
+
+/**
+ * <the-title></the-title>
+ *
+ * @description
+ * Displays the post title of the current post.
+ *
+ * ## Example
+ *
+ * ```
+ * HTML: <the-title></the-title>
+ * Result: <div class="the-title">Hello World</div>
+ * ```
+ */
+wp.directive( "theTitle", [ '$sce', function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
 		require : '^havePosts',
-		link: function( scope, element ) {
-			element.html( scope.$parent.post.title.rendered );
-		}
+		transclude: true,
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					scope.title = $sce.trustAsHtml( scope.$parent.post.title.rendered );
+				}
+			}
+		},
+		template: "<div class=\"the-title\" ng-bind-html=\"title\">{{ title }}</div>"
 	}
 } ] );
 
-wp.directive( "theContent", [ function() {
+
+/**
+ * <the-content></the-content>
+ *
+ * @description
+ * Displays the post content of the current post.
+ *
+ * ## Example
+ *
+ * ```
+ * HTML: <the-content></the-content>
+ * Result: <div class="the-content"><p>Hello World</p></div>
+ * ```
+ */
+wp.directive( "theContent", [ '$sce', function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
 		require : '^havePosts',
-		link: function( scope, element ) {
-			element.html( scope.$parent.post.content.rendered );
-		}
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					scope.content = $sce.trustAsHtml( scope.$parent.post.content.rendered );
+				}
+			}
+		},
+		template: "<div class=\"the-content\" ng-bind-html=\"content\">{{ content }}</div>"
 	}
 } ] );
 
+
+/**
+ * <the-post-thumbnail></the-post-thumbnail>
+ *
+ * @description
+ * Displays the post thumbnail of the current post.
+ *
+ * ## Example
+ *
+ * ```
+ * HTML: <the-post-thumbnail></the-post-thumbnail>
+ * Result: <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
+ * ```
+ *
+ * Sets the size `full`, so post thumbnail's size will be `full`.
+ * ```
+ * HTML: <the-post-thumbnail size="full"></the-post-thumbnail>
+ * Result: <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
+ * ```
+ *
+ * ## Attributes
+ * | Attribute | Type   | Details                                                        |
+ * |-----------|--------|----------------------------------------------------------------|
+ * | size      | string | Size of the post thumbnail. Default is `full`.                 |
+ */
 wp.directive( "thePostThumbnail", [ function() {
 	return{
 		restrict:'E',
@@ -109,6 +178,18 @@ wp.directive( "thePostThumbnail", [ function() {
 	}
 } ] );
 
+
+/**
+ * <the-id></the-id>
+ *
+ * @description
+ * Displays the ID of the current post.
+ *
+ * ```
+ * HTML: <the-id></the-id>
+ * Result: <div class="the-id">123</div>
+ * ```
+ */
 wp.directive( "theId", [ function() {
 	return{
 		restrict:'E',

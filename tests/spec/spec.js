@@ -33,13 +33,13 @@ describe( 'have-posts directive', function() {
 		] );
 
 		// singular
-		$httpBackend.whenGET( /\/(posts)|(pages)\/[0-9]+$/ ).respond( 200, [
-			{
-				content: {
-					rendered: 'Hello World'
-				}
-			}
-		] );
+		// $httpBackend.whenGET( /\/(posts)|(pages)\/[0-9]+$/ ).respond( 200, [
+		// 	{
+		// 		content: {
+		// 			rendered: 'Hello World'
+		// 		}
+		// 	}
+		// ] );
 	} ) );
 
 	afterEach(function() {
@@ -92,13 +92,12 @@ describe( 'have-posts directive', function() {
 		expect( $rootScope.$$childTail.postType ).toEqual( 'posts' );
 	} ) );
 
-	it( 'postId should be 123', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" post-id="123" />' )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( $rootScope.$$childTail.query ).toEqual( { endpoint: 'posts', id: '123' } );
-		expect( $rootScope.$$childTail.postId ).toEqual( '123' );
-	} ) );
+	// it( 'postId should be 123', inject( function( $rootScope, $compile ) {
+	// 	var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" post-id="123" />' )( $rootScope );
+	// 	$rootScope.$digest();
+	// 	$httpBackend.flush();
+	// 	expect( $rootScope.$$childTail.query ).toEqual( { endpoint: 'posts', id: '123' } );
+	// } ) );
 
 	it( 'the-id should be like 123', inject( function( $rootScope, $compile ) {
 		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><the-id></the-id></have-posts>' )( $rootScope );
