@@ -11,14 +11,27 @@ describe( 'have-posts directive', function() {
 		$rootScope = _$rootScope_;
 
 		// list of the posts or pages
-		$httpBackend.whenGET( /\/(posts)|(pages)\?/ ).respond( 200, [ {
-			key: 'value'
-		} ] );
+		$httpBackend.whenGET( /\/(posts)|(pages)\?/ ).respond( 200, [
+			{
+				content: {
+					rendered: 'Hello World(1)'
+				}
+			},
+			{
+				content: {
+					rendered: 'Hello World(2)'
+				}
+			}
+		] );
 
 		// singular
-		$httpBackend.whenGET( /\/(posts)|(pages)\/[0-9]+$/ ).respond( 200, [ {
-			key: 'value'
-		} ] );
+		$httpBackend.whenGET( /\/(posts)|(pages)\/[0-9]+$/ ).respond( 200, [
+			{
+				content: {
+					rendered: 'Hello World'
+				}
+			}
+		] );
 	} ) );
 
 	afterEach(function() {
@@ -82,5 +95,12 @@ describe( 'have-posts directive', function() {
 		$httpBackend.flush();
 		expect( $rootScope.query ).toEqual( { endpoint: 'posts', id: '123' } );
 		expect( $rootScope.postId ).toEqual( '123' );
+	} ) );
+
+	it( 'content should be parsed', inject( function( $rootScope, $compile ) {
+		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts">{{ posts[0].content.rendered }}</have-posts>' )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( element.text() ).toEqual( 'Hello World(1)' );
 	} ) );
 } );

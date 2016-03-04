@@ -45,7 +45,7 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 				}
 
 				WP_Query( scope.apiRoot ).query( scope.query ).$promise.then( function( posts ) {
-					// console.log( posts );
+					scope.posts = posts;
 				} );
 			}
 		},
