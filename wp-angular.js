@@ -13,7 +13,6 @@ wp.factory( 'WP_Query', [ '$resource', function( $resource ){
 } ] );
 
 wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
-	console.log( 'hello' );
 	return {
 		restrict: "E",
 		replace: true,
