@@ -35,9 +35,9 @@ describe( 'have-posts directive', function() {
 		$rootScope = _$rootScope_;
 
 		// list of the posts or pages
-		$httpBackend.whenGET( /\/(posts)|(pages)\?/ ).respond( 200, [
+		$httpBackend.when( 'GET', /\/(posts)|(pages)\?/ ).respond( 200, [
 			{
-				id: '123',
+				id: '1',
 				title: {
 					rendered: 'Title(1)'
 				},
@@ -46,7 +46,7 @@ describe( 'have-posts directive', function() {
 				}
 			},
 			{
-				id: '124',
+				id: '2',
 				title: {
 					rendered: 'Title(2)'
 				},
@@ -55,7 +55,7 @@ describe( 'have-posts directive', function() {
 				}
 			},
 			{
-				id: '125',
+				id: '3',
 				title: {
 					rendered: 'Title(3)'
 				},
@@ -65,14 +65,16 @@ describe( 'have-posts directive', function() {
 			}
 		] );
 
-		// singular
-		// $httpBackend.whenGET( /\/(posts)|(pages)\/[0-9]+$/ ).respond( 200, [
-		// 	{
-		// 		content: {
-		// 			rendered: 'Hello World'
-		// 		}
-		// 	}
-		// ] );
+		// get singular content
+		$httpBackend.when( 'GET', /\/(posts)|(pages)\/[0-9]+/ ).respond( 200, {
+			id: '3',
+			title: {
+				rendered: 'Title(3)'
+			},
+			content: {
+				rendered: 'Hello World(3)'
+			}
+		} );
 	} ) );
 
 	afterEach(function() {
@@ -126,10 +128,10 @@ describe( 'have-posts directive', function() {
 	} ) );
 
 	// it( 'postId should be 123', inject( function( $rootScope, $compile ) {
-	// 	var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" post-id="123" />' )( $rootScope );
+	// 	var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" post-id="3"></have-posts>' )( $rootScope );
 	// 	$rootScope.$digest();
 	// 	$httpBackend.flush();
-	// 	expect( $rootScope.$$childTail.query ).toEqual( { endpoint: 'posts', id: '123' } );
+	// 	expect( $rootScope.$$childTail.query ).toEqual( { endpoint: 'posts', id: '3' } );
 	// } ) );
 
 	it( 'the-id should be like 123', inject( function( $rootScope, $compile ) {
@@ -137,7 +139,8 @@ describe( 'have-posts directive', function() {
 		$rootScope.$digest();
 		$httpBackend.flush();
 		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
-			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( ( i + 123 ).toString() );
+			var n = i + 1;
+			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( ( n ).toString() );
 		}
 	} ) );
 
@@ -147,9 +150,8 @@ describe( 'have-posts directive', function() {
 		$httpBackend.flush();
 		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
 			var n = i + 1;
-			var id = 123 + i;
 			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( 'Title(' + n + ')' );
-			expect( angular.element( 'a', element ).eq(i).attr( 'href' ) ).toEqual( '#!/post/' + id );
+			expect( angular.element( 'a', element ).eq(i).attr( 'href' ) ).toEqual( '#!/post/' + n );
 		}
 	} ) );
 

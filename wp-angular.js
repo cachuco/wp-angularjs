@@ -32,6 +32,7 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 				pre: function preLink( scope, element, attrs, controller ) {
 					scope.posts = [];
 					if ( scope.postId ) {
+						console.log(scope.postId);
 						scope.query = {
 							'endpoint': scope.postType,
 							'id': scope.postId
