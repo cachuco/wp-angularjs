@@ -141,4 +141,11 @@ describe( 'have-posts directive', function() {
 			expect( angular.element( element.children()[i] ).text() ).toEqual( ( i + 123 ).toString() );
 		}
 	} ) );
+
+	it( 'Tests for angular.extend()', inject( function( $rootScope, $compile ) {
+		var dst = { key1: 'dst1', key2: 'dst2' };
+		var src = { key1: 'src1', key3: 'src3' };
+		var res = angular.extend( dst, src );
+		expect( res ).toEqual( { key1: 'src1', key2: 'dst2', key3: 'src3' } );
+	} ) );
 } );
