@@ -24,7 +24,7 @@ var myapp = angular.module( "myapp", [ "wp" ] );
 
 /**
  * Adds `<my-permalink></my-permalink>`
- * Then: <a ng-href="#!/post/123">Hello</a>
+ * Then: `<a href="#!/post/123">Hello</a>`
  */
 myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 	return{
