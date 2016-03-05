@@ -5,7 +5,7 @@ describe( 'have-posts directive', function() {
 	 */
 	var myapp = angular.module( "myapp", [ "wp" ] );
 
-	wp.directive( "myTheId", [ function() {
+	myapp.directive( "myTheId", [ function() {
 		return{
 			restrict:'E',
 			replace: true,
@@ -20,6 +20,7 @@ describe( 'have-posts directive', function() {
 			template: "<div class=\"the-id\">{{ post_id }}</div>"
 		}
 	} ] );
+	// end custom template tag
 
 	var $compile,
 		$rootScope;
