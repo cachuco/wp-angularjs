@@ -14,18 +14,21 @@ describe( 'have-posts directive', function() {
 		$httpBackend.whenGET( /\/(posts)|(pages)\?/ ).respond( 200, [
 			{
 				id: '123',
+				title: "Hello(1)",
 				content: {
 					rendered: 'Hello World(1)'
 				}
 			},
 			{
 				id: '124',
+				title: "Hello(1)",
 				content: {
 					rendered: 'Hello World(2)'
 				}
 			},
 			{
 				id: '125',
+				title: "Hello(1)",
 				content: {
 					rendered: 'Hello World(3)'
 				}
