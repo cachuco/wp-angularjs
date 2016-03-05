@@ -82,7 +82,7 @@ wp.directive( "theTitle", [ '$sce', function( $sce ) {
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
 				post: function postLink( scope, element, attrs, controller ) {
-					scope.title = $sce.trustAsHtml( scope.$parent.post.title.rendered );
+					scope.title = scope.$parent.post.title.rendered;
 				}
 			}
 		},

@@ -22,8 +22,11 @@ Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.gi
 // Registers your module, you should import `wp`.
 var myapp = angular.module( "myapp", [ "wp" ] );
 
-// Adds `<my-the-id></my-the-id>` then `<div>123</div>`
-myapp.directive( "myTheId", [ function() {
+/**
+ * Adds `<my-permalink></my-permalink>`
+ * Then: <a ng-href="#!/post/123">Hello</a>
+ */
+myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -33,10 +36,11 @@ myapp.directive( "myTheId", [ function() {
 				post: function postLink( scope, element, attrs, controller ) {
 					// `scope.$parent.post` is the post object
 					scope.post_id = scope.$parent.post.id;
+					scope.title = scope.$parent.post.title.rendered;
 				}
 			}
 		},
-		template: "<div>{{ post_id }}</div>"
+		template: "<a ng-href=\"#!/post/{{ post_id }}\">{{ title }}</a>"
 	}
 } ] );
 ```

@@ -5,7 +5,7 @@ describe( 'have-posts directive', function() {
 	 */
 	var myapp = angular.module( "myapp", [ "wp" ] );
 
-	myapp.directive( "myTheId", [ function() {
+	myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 		return{
 			restrict:'E',
 			replace: true,
@@ -13,11 +13,13 @@ describe( 'have-posts directive', function() {
 			compile: function( tElement, tAttrs, transclude ) {
 				return {
 					post: function postLink( scope, element, attrs, controller ) {
+						// `scope.$parent.post` is the post object
 						scope.post_id = scope.$parent.post.id;
+						scope.title = scope.$parent.post.title.rendered;
 					}
 				}
 			},
-			template: "<div class=\"the-id\">{{ post_id }}</div>"
+			template: "<a ng-href=\"#!/post/{{ post_id }}\">{{ title }}</a>"
 		}
 	} ] );
 	// end custom template tag
@@ -36,21 +38,27 @@ describe( 'have-posts directive', function() {
 		$httpBackend.whenGET( /\/(posts)|(pages)\?/ ).respond( 200, [
 			{
 				id: '123',
-				title: "Hello(1)",
+				title: {
+					rendered: 'Title(1)'
+				},
 				content: {
 					rendered: 'Hello World(1)'
 				}
 			},
 			{
 				id: '124',
-				title: "Hello(1)",
+				title: {
+					rendered: 'Title(2)'
+				},
 				content: {
 					rendered: 'Hello World(2)'
 				}
 			},
 			{
 				id: '125',
-				title: "Hello(1)",
+				title: {
+					rendered: 'Title(3)'
+				},
 				content: {
 					rendered: 'Hello World(3)'
 				}
@@ -134,11 +142,12 @@ describe( 'have-posts directive', function() {
 	} ) );
 
 	it( 'Creates a custom template tag', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><my-the-id></my-the-id></have-posts>' )( $rootScope );
+		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><my-permalink></my-permalink></have-posts>' )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		for ( var i = 0; i < element.children().length; i++ ) {
-			expect( angular.element( element.children()[i] ).text() ).toEqual( ( i + 123 ).toString() );
+			var n = i + 1;
+			expect( angular.element( element.children()[i] ).text() ).toEqual( 'Title(' + n + ')' );
 		}
 	} ) );
 
