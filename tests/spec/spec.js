@@ -136,8 +136,8 @@ describe( 'have-posts directive', function() {
 		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><the-id></the-id></have-posts>' )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
-		for ( var i = 0; i < element.children().length; i++ ) {
-			expect( angular.element( element.children()[i] ).text() ).toEqual( ( i + 123 ).toString() );
+		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
+			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( ( i + 123 ).toString() );
 		}
 	} ) );
 
@@ -145,9 +145,11 @@ describe( 'have-posts directive', function() {
 		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><my-permalink></my-permalink></have-posts>' )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
-		for ( var i = 0; i < element.children().length; i++ ) {
+		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
 			var n = i + 1;
-			expect( angular.element( element.children()[i] ).text() ).toEqual( 'Title(' + n + ')' );
+			var id = 123 + i;
+			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( 'Title(' + n + ')' );
+			expect( angular.element( 'a', element ).eq(i).attr( 'href' ) ).toEqual( '#!/post/' + id );
 		}
 	} ) );
 
