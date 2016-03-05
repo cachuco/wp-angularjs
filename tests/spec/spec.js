@@ -1,9 +1,30 @@
 describe( 'have-posts directive', function() {
 
+	/**
+	 * Example of the custom template tag for testing
+	 */
+	var myapp = angular.module( "myapp", [ "wp" ] );
+
+	wp.directive( "myTheId", [ function() {
+		return{
+			restrict:'E',
+			replace: true,
+			require : '^havePosts',
+			compile: function( tElement, tAttrs, transclude ) {
+				return {
+					post: function postLink( scope, element, attrs, controller ) {
+						scope.post_id = scope.$parent.post.id;
+					}
+				}
+			},
+			template: "<div class=\"the-id\">{{ post_id }}</div>"
+		}
+	} ] );
+
 	var $compile,
 		$rootScope;
 
-	beforeEach( module( 'wp' ) );
+	beforeEach( module( 'myapp' ) ); // It should be module for testing.
 
 	beforeEach( inject( function( _$httpBackend_, _$compile_, _$rootScope_ ) {
 		$httpBackend = _$httpBackend_;
@@ -104,6 +125,15 @@ describe( 'have-posts directive', function() {
 
 	it( 'the-id should be like 123', inject( function( $rootScope, $compile ) {
 		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><the-id></the-id></have-posts>' )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		for ( var i = 0; i < element.children().length; i++ ) {
+			expect( angular.element( element.children()[i] ).text() ).toEqual( ( i + 123 ).toString() );
+		}
+	} ) );
+
+	it( 'Creates a custom template tag', inject( function( $rootScope, $compile ) {
+		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><my-the-id></my-the-id></have-posts>' )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		for ( var i = 0; i < element.children().length; i++ ) {

@@ -52,8 +52,6 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 							scope.posts = posts;
 						} );
 					}
-				},
-				post: function postLink( scope, element, attrs, controller ) {
 				}
 			}
 		},
@@ -205,10 +203,3 @@ wp.directive( "theId", [ function() {
 		template: "<div class=\"the-id\">{{ post_id }}</div>"
 	}
 } ] );
-
-
-
-
-
-
-
