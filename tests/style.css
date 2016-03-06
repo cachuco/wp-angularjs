@@ -29,3 +29,8 @@ article
 	padding: 40px;
 	margin: 0 -40px;
 }
+
+pre
+{
+	white-space: pre-wrap;
+}
