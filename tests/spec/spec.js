@@ -82,6 +82,8 @@ describe( 'have-posts directive', function() {
 		$httpBackend.verifyNoOutstandingRequest();
 	});
 
+	var api = "http://example.jp";
+
 	it( 'module "wp" should be exists', inject( function( $rootScope, $compile ) {
 		expect( angular.module( 'wp' ) ).not.toBeNull()
 	} ) );
@@ -90,68 +92,87 @@ describe( 'have-posts directive', function() {
 		expect( angular.module( 'wp' ).requires ).toContain( 'ngResource' )
 	} ) );
 
-	it( 'scope.apiRoot should be "http://example.jp"', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.jp" post-type="posts">Post type is {{ postType }}</div>' )( $rootScope );
+	it( 'scope.apiRoot should be "http://example.jp"',
+				inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api
+						+ '" post-type="posts">Post type is {{ postType }}</div>'
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
-		expect( $rootScope.$$childTail.apiRoot ).toEqual( 'http://example.jp' );
+		expect( $rootScope.$$childTail.apiRoot ).toEqual( api );
 	} ) );
 
 	it( '<have-posts> should be div', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts">Post type is {{ postType }}</div>' )( $rootScope );
+		var html = '<have-posts api-root="' + api
+						+ '" post-type="posts">Post type is {{ postType }}</div>'
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		expect( element.prop( 'tagName' ) ).toEqual( 'DIV' );
 	} ) );
 
-	it( '<have-posts> should have class `posts`', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" />' )( $rootScope );
+	it( '<have-posts> should have class `posts`',
+				inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts" />';
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		expect( element.hasClass( 'have-posts' ) ).toEqual( true );
 	} ) );
 
 	it( 'should have class "pages"', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="pages" />' )( $rootScope );
+		var html = '<have-posts api-root="' + api + '" post-type="pages" />';
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		for ( var i = 0; i < element.children().length; i++ ) {
-			expect( angular.element( element.children()[i] ).hasClass( 'pages' ) ).toEqual( true );
+			expect( angular.element( element.children()[i] ).hasClass( 'pages' ) )
+				.toEqual( true );
 		}
 	} ) );
 
 	it( 'postType should be posts', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" />' )( $rootScope );
+		var html = '<have-posts api-root="' + api + '" post-type="posts" />';
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		expect( $rootScope.$$childTail.postType ).toEqual( 'posts' );
 	} ) );
 
 	// it( 'postId should be 123', inject( function( $rootScope, $compile ) {
-	// 	var element = $compile( '<have-posts api-root="http://example.com" post-type="posts" post-id="3"></have-posts>' )( $rootScope );
+	// 	var html '<have-posts api-root="' + api + '" post-type="posts" post-id="3">'
+	// 				+ '</have-posts>';
+	// 	var element = $compile( html )( $rootScope );
 	// 	$rootScope.$digest();
 	// 	$httpBackend.flush();
 	// 	expect( $rootScope.$$childTail.query ).toEqual( { endpoint: 'posts', id: '3' } );
 	// } ) );
 
 	it( 'the-id should be like 123', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><the-id></the-id></have-posts>' )( $rootScope );
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<the-id></the-id></have-posts>'
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
 			var n = i + 1;
-			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( ( n ).toString() );
+			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( ( n )
+				.toString() );
 		}
 	} ) );
 
 	it( 'Creates a custom template tag', inject( function( $rootScope, $compile ) {
-		var element = $compile( '<have-posts api-root="http://example.com" post-type="posts"><my-permalink></my-permalink></have-posts>' )( $rootScope );
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<my-permalink></my-permalink></have-posts>';
+		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
 		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
 			var n = i + 1;
-			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( 'Title(' + n + ')' );
-			expect( angular.element( 'a', element ).eq(i).attr( 'href' ) ).toEqual( '#!/post/' + n );
+			expect( angular.element( 'a', element ).eq(i).text() )
+				.toEqual( 'Title(' + n + ')' );
+			expect( angular.element( 'a', element ).eq(i).attr( 'href' ) )
+				.toEqual( '#!/post/' + n );
 		}
 	} ) );
 
