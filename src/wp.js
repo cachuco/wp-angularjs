@@ -1,6 +1,6 @@
 'use strict';
 
-var wp = angular.module( "wp", [ "wp.services", "ngResource" ] );
+var wp = angular.module( "wp", [ "wp.services", "ngResource", "ngSanitize" ] );
 
 /**
  * <have-posts></have-posts>

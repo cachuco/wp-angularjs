@@ -5,8 +5,7 @@ module.exports = function( config ) {
 	config.set( {
 
 		// base path that will be used to resolve all patterns (eg. files, exclude)
-		basePath: '../',
-
+		basePath: '',
 
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -19,13 +18,14 @@ module.exports = function( config ) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'node_modules/jquery/dist/jquery.min.js',
-			'node_modules/angular/angular.min.js',
-			'node_modules/angular-resource/angular-resource.min.js',
-			'node_modules/angular-mocks/angular-mocks.js',
-			'src/wp-services.js',
-			'src/wp.js',
-			'tests/spec/**/*.js'
+			'../node_modules/jquery/dist/jquery.min.js',
+			'../node_modules/angular/angular.min.js',
+			'../node_modules/angular-resource/angular-resource.min.js',
+			'../node_modules/angular-mocks/angular-mocks.js',
+			'../node_modules/angular-sanitize/angular-sanitize.min.js',
+			'../src/wp-services.js',
+			'../src/wp.js',
+			'../tests/spec/**/*.js'
 		],
 
 
