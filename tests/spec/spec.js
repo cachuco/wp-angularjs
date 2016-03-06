@@ -140,7 +140,7 @@ describe( 'have-posts directive', function() {
 	} ) );
 
 	// it( 'postId should be 123', inject( function( $rootScope, $compile ) {
-	// 	var html '<have-posts api-root="' + api + '" post-type="posts" post-id="3">'
+	// 	var html = '<have-posts api-root="' + api + '" post-type="posts" post-id="3">'
 	// 				+ '</have-posts>';
 	// 	var element = $compile( html )( $rootScope );
 	// 	$rootScope.$digest();

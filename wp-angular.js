@@ -14,6 +14,28 @@ wp.factory( 'WP_Query', [ '$resource', function( $resource ){
 	}
 } ] );
 
+
+/**
+ * <have-posts></have-posts>
+ *
+ * @description
+ * WordPress loop
+ *
+ * ## Example
+ *
+ * ```
+ * <thave-posts api-root="http://example.com" post-type="posts">
+ *   <h2 class="entry-title"><the-title></the-title></h2>
+ *   <div class="entry-content"><the-content></the-content></div>
+ * </have-posts>
+ * ```
+ *
+ * ## Attributes
+ * | Attribute | Type   | Details                                                        |
+ * |-----------|--------|----------------------------------------------------------------|
+ * | api-root  | string | Root url of the API. e.g. http://example.com/wp-json/wp/v2     |
+ * | post-type | string | `posts` or `pages` or `media` or custom post type              |
+ */
 wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 	return {
 		restrict: "E",
@@ -32,12 +54,12 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 				pre: function preLink( scope, element, attrs, controller ) {
 					scope.posts = [];
 					if ( scope.postId ) {
-						console.log(scope.postId);
 						scope.query = {
 							'endpoint': scope.postType,
 							'id': scope.postId
 						}
-						WP_Query( scope.apiRoot ).get( scope.query ).$promise.then( function( posts ) {
+						WP_Query( scope.apiRoot ).get( scope.query ).$promise
+								.then( function( posts ) {
 							scope.posts.push( posts );
 						} );
 					} else {
@@ -49,14 +71,17 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
-						WP_Query( scope.apiRoot ).query( scope.query ).$promise.then( function( posts ) {
+						WP_Query( scope.apiRoot ).query( scope.query ).$promise
+								.then( function( posts ) {
 							scope.posts = posts;
 						} );
 					}
 				}
 			}
 		},
-		template: "<div class=\"have-posts\"><article class=\"{{ postType }} post-{{ post.id }}\" ng-repeat=\"post in posts\"><div ng-transclude></div></article></div>"
+		template: "<div class=\"have-posts\"><article class=\"{{ postType }}"
+					+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
+						+ "<div ng-transclude></div></article></div>"
 	}
 } ] );
 
@@ -113,11 +138,13 @@ wp.directive( "theContent", [ '$sce', function( $sce ) {
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
 				post: function postLink( scope, element, attrs, controller ) {
-					scope.content = $sce.trustAsHtml( scope.$parent.post.content.rendered );
+					var post = scope.$parent.post;
+					scope.content = $sce.trustAsHtml( post.content.rendered );
 				}
 			}
 		},
-		template: "<div class=\"the-content\" ng-bind-html=\"content\">{{ content }}</div>"
+		template: "<div class=\"the-content\" ng-bind-html=\"content\">"
+						+ "{{ content }}</div>"
 	}
 } ] );
 
@@ -158,13 +185,15 @@ wp.directive( "thePostThumbnail", [ function() {
 						attrs.size = 'post-thumbnail';
 					}
 					var scheme = 'https://api.w.org/featuredmedia';
-					var post = scope.$parent.post;
+					var _embedded = scope.$parent.post._embedded;
 					var img;
-					if ( post._embedded && post._embedded[scheme] && post._embedded[scheme].length ) {
-						if ( post._embedded[scheme][0].media_details.sizes[attrs.size] ) {
-							img = post._embedded[scheme][0].media_details.sizes[attrs.size].source_url;
+					if ( _embedded && _embedded[scheme] && _embedded[scheme].length ) {
+						if ( _embedded[scheme][0].media_details.sizes[attrs.size] ) {
+							img = _embedded[scheme][0].media_details
+									.sizes[attrs.size].source_url;
 						} else {
-							img = post._embedded[scheme][0].media_details.sizes['full'].source_url;
+							img = _embedded[scheme][0].media_details
+									.sizes['full'].source_url;
 						}
 					}
 					if ( img ) {
@@ -173,7 +202,8 @@ wp.directive( "thePostThumbnail", [ function() {
 				}
 			}
 		},
-		template: "<div class=\"the-post-thumbnail\"><img ng-src=\"{{ image_src }}\"></div>"
+		template: "<div class=\"the-post-thumbnail\">"
+						+ "<img ng-src=\"{{ image_src }}\"></div>"
 	}
 } ] );
 
