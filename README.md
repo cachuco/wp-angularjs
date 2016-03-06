@@ -6,7 +6,7 @@ This project is in progress...
 
 ```
 <have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts">
-	<the-post-thumbnail data-size="post-thumbnaiil" class="hello"></the-post-thumbnail>
+	<the-post-thumbnail size="post-thumbnaiil" class="hello"></the-post-thumbnail>
 	<h1 class="entry-title"><the-title></the-title></h1>
 	<div class="entry-content">
 		<the-content></the-content>

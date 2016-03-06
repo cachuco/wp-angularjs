@@ -1,19 +1,6 @@
 'use strict';
 
-var wp = angular.module( "wp", [ "ngResource" ] );
-
-wp.factory( 'WP_Query', [ '$resource', function( $resource ){
-	return function( apiRoot ) {
-		var api = apiRoot + "/:endpoint/:id";
-		var params = {
-			endpoint: '@endpoint',
-			id: '@id'
-		};
-		var actions = {};
-		return $resource( api, params, actions );
-	}
-} ] );
-
+var wp = angular.module( "wp", [ "wp.services", "ngResource" ] );
 
 /**
  * <have-posts></have-posts>
@@ -36,7 +23,7 @@ wp.factory( 'WP_Query', [ '$resource', function( $resource ){
  * | api-root  | string | Root url of the API. e.g. http://example.com/wp-json/wp/v2     |
  * | post-type | string | `posts` or `pages` or `media` or custom post type              |
  */
-wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
+wp.directive( "havePosts", [ "WP_Query", function( WP_Query ) {
 	return {
 		restrict: "E",
 		replace: true,
@@ -46,7 +33,7 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
 			postId: '@',
 			apiRoot: '@',
 		},
-		controller: [ '$scope', function( $scope ) {
+		controller: [ "$scope", function( $scope ) {
 			// nothing to do, but we need here
 		} ],
 		compile: function( tElement, tAttrs, transclude ) {
@@ -99,7 +86,7 @@ wp.directive( "havePosts", [ 'WP_Query', function( WP_Query ) {
  * Result: <div class="the-title">Hello World</div>
  * ```
  */
-wp.directive( "theTitle", [ '$sce', function( $sce ) {
+wp.directive( "theTitle", [ "$sce", function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -130,7 +117,7 @@ wp.directive( "theTitle", [ '$sce', function( $sce ) {
  * Result: <div class="the-content"><p>Hello World</p></div>
  * ```
  */
-wp.directive( "theContent", [ '$sce', function( $sce ) {
+wp.directive( "theContent", [ "$sce", function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,

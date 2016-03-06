@@ -23,7 +23,8 @@ module.exports = function( config ) {
 			'node_modules/angular/angular.min.js',
 			'node_modules/angular-resource/angular-resource.min.js',
 			'node_modules/angular-mocks/angular-mocks.js',
-			'wp-angular.js',
+			'src/wp-services.js',
+			'src/wp.js',
 			'tests/spec/**/*.js'
 		],
 
