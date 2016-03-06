@@ -13,9 +13,9 @@ describe( 'have-posts directive', function() {
 			compile: function( tElement, tAttrs, transclude ) {
 				return {
 					post: function postLink( scope, element, attrs, controller ) {
-						// `scope.$parent.post` is the post object
-						scope.post_id = scope.$parent.post.id;
-						scope.title = scope.$parent.post.title.rendered;
+						var post = scope.$parent.post; // post object
+						scope.post_id = post.id;
+						scope.title = post.title.rendered;
 					}
 				}
 			},

@@ -16,16 +16,15 @@ This project is in progress...
 
 Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.github.io/wp-angular/tests/tests.html)
 
-## Adds custom template tag
+## Creates your custom template tag
 
 ```
 // Registers your module, you should import `wp`.
 var myapp = angular.module( "myapp", [ "wp" ] );
 
-/**
- * Adds `<my-permalink></my-permalink>`
- * Then: `<a href="#!/post/123">Hello</a>`
- */
+// Creates a `<my-permalink></my-permalink>` as custom template tag.
+// If you place it in your HTML,
+// then you can get `<a href="#!/post/123">Hello</a>`.
 myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 	return{
 		restrict:'E',
@@ -34,9 +33,9 @@ myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
 				post: function postLink( scope, element, attrs, controller ) {
-					// `scope.$parent.post` is the post object
-					scope.post_id = scope.$parent.post.id;
-					scope.title = scope.$parent.post.title.rendered;
+					var post = scope.$parent.post; // post object
+					scope.post_id = post.id;
+					scope.title = post.title.rendered;
 				}
 			}
 		},
