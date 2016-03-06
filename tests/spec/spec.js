@@ -42,7 +42,7 @@ describe( 'have-posts directive', function() {
 					rendered: 'Title(1)'
 				},
 				content: {
-					rendered: 'Hello World(1)'
+					rendered: '<p>Hello World(1)</p>'
 				}
 			},
 			{
@@ -51,7 +51,7 @@ describe( 'have-posts directive', function() {
 					rendered: 'Title(2)'
 				},
 				content: {
-					rendered: 'Hello World(2)'
+					rendered: '<p>Hello World(2)</p>'
 				}
 			},
 			{
@@ -60,7 +60,7 @@ describe( 'have-posts directive', function() {
 					rendered: 'Title(3)'
 				},
 				content: {
-					rendered: 'Hello World(3)'
+					rendered: '<p>Hello World(3)</p>'
 				}
 			}
 		] );
@@ -154,9 +154,10 @@ describe( 'have-posts directive', function() {
 		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
-		for ( var i = 0; i < angular.element( 'a', element ).length; i++ ) {
+		expect( angular.element( '.the-id', element ).length ).toEqual( 3 );
+		for ( var i = 0; i < angular.element( '.the-id', element ).length; i++ ) {
 			var n = i + 1;
-			expect( angular.element( 'a', element ).eq(i).text() ).toEqual( ( n )
+			expect( angular.element( '.the-id', element ).eq(i).text() ).toEqual( ( n )
 				.toString() );
 		}
 	} ) );
@@ -181,5 +182,19 @@ describe( 'have-posts directive', function() {
 		var src = { key1: 'src1', key3: 'src3' };
 		var res = angular.extend( dst, src );
 		expect( res ).toEqual( { key1: 'src1', key2: 'dst2', key3: 'src3' } );
+	} ) );
+
+	it( 'Tests for <the-content>', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<the-content></the-content></have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( angular.element( '.the-content', element ).length ).toEqual( 3 );
+		for ( var i = 0; i < angular.element( '.the-content', element ).length; i++ ) {
+			var n = i + 1;
+			expect( angular.element( '.the-content', element ).eq(i).html() )
+				.toEqual( '<p>Hello World(' + n + ')</p>' );
+		}
 	} ) );
 } );
