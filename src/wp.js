@@ -24,7 +24,7 @@ var wp = angular.module( "wp", [ "wp.services", "ngResource", "ngSanitize" ] );
  * | api-root  | string | Root url of the API. e.g. http://example.com/wp-json/wp/v2     |
  * | post-type | string | `posts` or `pages` or `media` or custom post type              |
  */
-wp.directive( "havePosts", [ "WP_Query", function( WP_Query ) {
+wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 	return {
 		restrict: "E",
 		replace: true,
@@ -46,7 +46,7 @@ wp.directive( "havePosts", [ "WP_Query", function( WP_Query ) {
 							'endpoint': scope.postType,
 							'id': scope.postId
 						}
-						WP_Query( scope.apiRoot ).get( scope.query ).$promise
+						wpQuery( scope.apiRoot ).get( scope.query ).$promise
 								.then( function( posts ) {
 							scope.posts.push( posts );
 						} );
@@ -59,7 +59,7 @@ wp.directive( "havePosts", [ "WP_Query", function( WP_Query ) {
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
-						WP_Query( scope.apiRoot ).query( scope.query ).$promise
+						wpQuery( scope.apiRoot ).query( scope.query ).$promise
 								.then( function( posts ) {
 							scope.posts = posts;
 						} );
