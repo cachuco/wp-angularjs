@@ -3,21 +3,22 @@
 var wp = angular.module( "wp", [ "wp.services", "ngResource", "ngSanitize" ] );
 
 /**
- * <have-posts></have-posts>
+ * @category directives
+ * @name havePosts
  *
  * @description
- * WordPress loop
+ * The `havePosts` directive is a WordPress loop.
  *
- * ## Example
+ * ### Example
  *
  * ```
- * <thave-posts api-root="http://example.com" post-type="posts">
+ * <have-posts api-root="http://example.com" post-type="posts">
  *   <h2 class="entry-title"><the-title></the-title></h2>
  *   <div class="entry-content"><the-content></the-content></div>
  * </have-posts>
  * ```
  *
- * ## Attributes
+ * ### Attributes
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | api-root  | string | Root url of the API. e.g. http://example.com/wp-json/wp/v2     |
@@ -74,12 +75,13 @@ wp.directive( "havePosts", [ "WP_Query", function( WP_Query ) {
 
 
 /**
- * <the-title></the-title>
+ * @category directives
+ * @name theTitle
  *
  * @description
  * Displays the post title of the current post.
  *
- * ## Example
+ * ### Example
  *
  * ```
  * HTML: <the-title></the-title>
@@ -105,7 +107,8 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 
 
 /**
- * <the-content></the-content>
+ * @category directives
+ * @name theContent
  *
  * @description
  * Displays the post content of the current post.
@@ -137,12 +140,13 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
 
 
 /**
- * <the-post-thumbnail></the-post-thumbnail>
+ * @category directives
+ * @name thePostThumbnail
  *
  * @description
  * Displays the post thumbnail of the current post.
  *
- * ## Example
+ * ### Example
  *
  * ```
  * HTML: <the-post-thumbnail></the-post-thumbnail>
@@ -155,7 +159,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * Result: <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
  * ```
  *
- * ## Attributes
+ * ### Attributes
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | size      | string | Size of the post thumbnail. Default is `full`.                 |
@@ -196,7 +200,8 @@ wp.directive( "thePostThumbnail", [ function() {
 
 
 /**
- * <the-id></the-id>
+ * @category directives
+ * @name theId
  *
  * @description
  * Displays the ID of the current post.
