@@ -7,8 +7,13 @@ This project is in progress...
 ```
 <have-posts api-root="http://example.com/wp-json/wp/v2"
 					post-type="posts" offset="0" per-page="5">
-	<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
-	<h1 class="entry-title"><the-title></the-title></h1>
+	<header class="entry-header">
+		<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
+		<h1 class="entry-title"><the-title></the-title></h1>
+		<div class="entry-meta">
+			<the-date format="yyyy/mm/dd"></the-date>
+		</div>
+	</header>
 	<div class="entry-content">
 		<the-content></the-content>
 	</div>
