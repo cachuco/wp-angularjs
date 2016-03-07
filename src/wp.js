@@ -13,7 +13,7 @@ var wp = angular.module( "wp", [
  * @description
  * The `havePosts` directive is a WordPress loop.
  *
- * ### Example
+ * #### Example
  *
  * ```
  * <have-posts api-root="http://example.com" post-type="posts">
@@ -22,7 +22,7 @@ var wp = angular.module( "wp", [
  * </have-posts>
  * ```
  *
- * ### Attributes
+ * #### Attributes
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | api-root  | string | Root url of the API. e.g. http://example.com/wp-json/wp/v2     |
@@ -111,7 +111,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  * @description
  * Displays the post title of the current post.
  *
- * ### Example
+ * #### Example
  *
  * ```
  * <the-title></the-title>
@@ -146,7 +146,7 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
  * @description
  * Displays the post content of the current post.
  *
- * ## Example
+ * #### Example
  *
  * ```
  * <the-content></the-content>
@@ -182,12 +182,12 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * @description
  * Displays the post thumbnail of the current post.
  *
- * ### Attributes
+ * #### Attributes
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | size      | string | Size of the post thumbnail. Default is `full`.                 |
  *
- * ### Example
+ * #### Example
  *
  * ```
  * HTML: <the-post-thumbnail></the-post-thumbnail>
@@ -274,7 +274,7 @@ wp.directive( "theId", [ function() {
  * @description
  * Displays the excerpt of the current post.
  *
- * ### Example
+ * #### Example
  * Place the code like following into your HTML.
  * ```
  * <the-excerpt></the-excerpt>
@@ -310,12 +310,12 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
  * @description
  * Displays the date of the current post.
  *
- * ### Attributes
+ * #### Attributes
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
  *
- * ### Example
+ * #### Example
  * Place the code like following into your HTML.
  * ```
  * <the-date></the-date>
