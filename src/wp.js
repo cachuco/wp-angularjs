@@ -33,6 +33,8 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 			postType: '@',
 			postId: '@',
 			apiRoot: '@',
+			perPage: '@',
+			offset: '@'
 		},
 		controller: [ "$scope", function( $scope ) {
 			// nothing to do, but we need here
@@ -51,10 +53,16 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 							scope.posts.push( posts );
 						} );
 					} else {
+						if ( ! scope.perPage ) {
+							scope.perPage = 10;
+						}
+						if ( ! scope.offset ) {
+							scope.offset = 0;
+						}
 						scope.query = {
 							'endpoint': scope.postType,
-							'per_page': 10,
-							'offset': 0,
+							'per_page': scope.perPage,
+							'offset': scope.offset,
 							'filter[orderby]': 'date',
 							'filter[order]': 'DESC',
 							'_embed': true
@@ -84,8 +92,11 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  * ### Example
  *
  * ```
- * HTML: <the-title></the-title>
- * Result: <div class="the-title">Hello World</div>
+ * <the-title></the-title>
+ * ```
+ * Then:
+ * ```
+ * <div class="the-title">Hello World</div>
  * ```
  */
 wp.directive( "theTitle", [ "$sce", function( $sce ) {
@@ -116,8 +127,11 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
  * ## Example
  *
  * ```
- * HTML: <the-content></the-content>
- * Result: <div class="the-content"><p>Hello World</p></div>
+ * <the-content></the-content>
+ * ```
+ * Then:
+ * ```
+ * <div class="the-content"><p>Hello World</p></div>
  * ```
  */
 wp.directive( "theContent", [ "$sce", function( $sce ) {
@@ -146,6 +160,11 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * @description
  * Displays the post thumbnail of the current post.
  *
+ * ### Attributes
+ * | Attribute | Type   | Details                                                        |
+ * |-----------|--------|----------------------------------------------------------------|
+ * | size      | string | Size of the post thumbnail. Default is `full`.                 |
+ *
  * ### Example
  *
  * ```
@@ -158,11 +177,6 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * HTML: <the-post-thumbnail size="full"></the-post-thumbnail>
  * Result: <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
  * ```
- *
- * ### Attributes
- * | Attribute | Type   | Details                                                        |
- * |-----------|--------|----------------------------------------------------------------|
- * | size      | string | Size of the post thumbnail. Default is `full`.                 |
  */
 wp.directive( "thePostThumbnail", [ function() {
 	return{
@@ -207,8 +221,11 @@ wp.directive( "thePostThumbnail", [ function() {
  * Displays the ID of the current post.
  *
  * ```
- * HTML: <the-id></the-id>
- * Result: <div class="the-id">123</div>
+ * <the-id></the-id>
+ * ```
+ * Then:
+ * ```
+ * <div class="the-id">123</div>
  * ```
  */
 wp.directive( "theId", [ function() {
@@ -224,5 +241,96 @@ wp.directive( "theId", [ function() {
 			}
 		},
 		template: "<div class=\"the-id\">{{ post_id }}</div>"
+	}
+} ] );
+
+
+/**
+ * @category directives
+ * @name theExcerpt
+ *
+ * @description
+ * Displays the excerpt of the current post.
+ *
+ * ### Example
+ * Place the code like following into your HTML.
+ * ```
+ * <the-excerpt></the-excerpt>
+ * ```
+ * Then you will get like following.
+ * ```
+ * <div class="the-excerpt"><p>Hello World.</p></div>
+ * ```
+ */
+wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					var post = scope.$parent.post;
+					scope.excerpt = $sce.trustAsHtml( post.excerpt.rendered );
+				}
+			}
+		},
+		template: "<div class=\"the-excerpt\" ng-bind-html=\"excerpt\">"
+						+ "{{ excerpt }}</div>"
+	}
+} ] );
+
+
+/**
+ * @category directives
+ * @name theDate
+ *
+ * @description
+ * Displays the date of the current post.
+ *
+ * ### Attributes
+ * | Attribute | Type   | Details                                                        |
+ * |-----------|--------|----------------------------------------------------------------|
+ * | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
+ *
+ * ### Example
+ * Place the code like following into your HTML.
+ * ```
+ * <the-date></the-date>
+ * ```
+ * Then you will get like following.
+ * ```
+ * <div class="the-date">2016-02-16 13:54:13</div>
+ * ```
+ *
+ * You can set format string like following.
+ * See https://docs.angularjs.org/api/ng/filter/date.
+ * ```
+ * <the-date  format="yyyy/MM/dd"></the-date>
+ * ```
+ * Then you will get like following.
+ * ```
+ * <div class="the-date">2016-02-16</div>
+ * ```
+ */
+wp.directive( "theDate", [ function() {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					if ( ! attrs.format ) {
+						scope.format = "yyyy/MM/dd H:mm:ss";
+					} else {
+						scope.format = attrs.format;
+					}
+					var date = scope.$parent.post.date_gmt + "Z";
+					scope.date = date;
+				}
+			}
+		},
+		template: "<div class=\"the-date\">{{ date | date: format }}</div>"
 	}
 } ] );

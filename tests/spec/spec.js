@@ -1,4 +1,4 @@
-describe( 'have-posts directive', function() {
+describe( 'Directives', function() {
 
 	/**
 	 * Example of the custom template tag for testing
@@ -14,12 +14,12 @@ describe( 'have-posts directive', function() {
 				return {
 					post: function postLink( scope, element, attrs, controller ) {
 						var post = scope.$parent.post; // post object
-						scope.post_id = post.id;
+						scope.id = post.id;
 						scope.title = post.title.rendered;
 					}
 				}
 			},
-			template: "<a ng-href=\"#!/post/{{ post_id }}\">{{ title }}</a>"
+			template: "<a ng-href=\"#!/post/{{ id }}\">{{ title }}</a>"
 		}
 	} ] );
 	// end custom template tag
@@ -43,7 +43,11 @@ describe( 'have-posts directive', function() {
 				},
 				content: {
 					rendered: '<p>Hello World(1)</p>'
-				}
+				},
+				excerpt: {
+					rendered: '<p>This is the excerpt. (1)</p>'
+				},
+				date_gmt: '2016-02-16T13:54:13'
 			},
 			{
 				id: '2',
@@ -52,7 +56,11 @@ describe( 'have-posts directive', function() {
 				},
 				content: {
 					rendered: '<p>Hello World(2)</p>'
-				}
+				},
+				excerpt: {
+					rendered: '<p>This is the excerpt. (2)</p>'
+				},
+				date_gmt: '2016-02-16T13:54:13'
 			},
 			{
 				id: '3',
@@ -61,7 +69,11 @@ describe( 'have-posts directive', function() {
 				},
 				content: {
 					rendered: '<p>Hello World(3)</p>'
-				}
+				},
+				excerpt: {
+					rendered: '<p>This is the excerpt. (3)</p>'
+				},
+				date_gmt: '2016-02-16T13:54:13'
 			}
 		] );
 
@@ -100,6 +112,24 @@ describe( 'have-posts directive', function() {
 		$rootScope.$digest();
 		$httpBackend.flush();
 		expect( $rootScope.$$childTail.apiRoot ).toEqual( api );
+	} ) );
+
+	it( 'perPage should be 3', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts" per-page="3">'
+					+ '</have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( $rootScope.$$childTail.query.per_page ).toEqual( "3" );
+	} ) );
+
+	it( 'offset should be 11', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts" offset="11">'
+					+ '</have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( $rootScope.$$childTail.query.offset ).toEqual( "11" );
 	} ) );
 
 	it( '<have-posts> should be div', inject( function( $rootScope, $compile ) {
@@ -195,6 +225,48 @@ describe( 'have-posts directive', function() {
 			var n = i + 1;
 			expect( angular.element( '.the-content', element ).eq(i).html() )
 				.toEqual( '<p>Hello World(' + n + ')</p>' );
+		}
+	} ) );
+
+	it( 'Tests for <the-excerpt>', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<the-excerpt></the-excerpt></have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( angular.element( '.the-excerpt', element ).length ).toEqual( 3 );
+		for ( var i = 0; i < angular.element( '.the-excerpt', element ).length; i++ ) {
+			var n = i + 1;
+			expect( angular.element( '.the-excerpt', element ).eq(i).html() )
+				.toEqual( '<p>This is the excerpt. (' + n + ')</p>' );
+		}
+	} ) );
+
+	it( 'Tests for <the-date>', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<the-date></the-date></have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( angular.element( '.the-date', element ).length ).toEqual( 3 );
+		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
+			var n = i + 1;
+			expect( angular.element( '.the-date', element ).eq(i).html() )
+				.toEqual( '2016/02/16 22:54:13' );
+		}
+	} ) );
+
+	it( 'Tests for <the-date> with format', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<the-date format="yyyy/MM/dd"></the-date></have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( angular.element( '.the-date', element ).length ).toEqual( 3 );
+		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
+			var n = i + 1;
+			expect( angular.element( '.the-date', element ).eq(i).html() )
+				.toEqual( '2016/02/16' );
 		}
 	} ) );
 } );

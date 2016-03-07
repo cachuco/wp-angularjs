@@ -72,6 +72,7 @@ pre
 
 .alignleft
 {
+	display: block;
 	margin-right: 1em;
 	margin-bottom: 1em;
 	float: left;
@@ -79,6 +80,7 @@ pre
 
 .alignright
 {
+	display: block;
 	margin-left: 1em;
 	margin-bottom: 1em;
 	float: right;
@@ -86,13 +88,14 @@ pre
 
 .alignnone
 {
+	display: block;
 	clear: both;
 }
 
 .aligncenter
 {
-	clear: both;
 	display: block;
+	clear: both;
 	margin-left: auto;
 	margin-right: auto;
 }
