@@ -62,6 +62,8 @@ describe( 'theDate directive', function() {
 	var api = "http://example.jp";
 
 	it( 'Tests for <the-date>', inject( function( $filter, $rootScope, $compile ) {
+		var date = '2016-02-16T13:54:13Z';
+		var format = 'yyyy/MM/ddTH:mm:ssZ';
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
 						+ '<the-date></the-date></have-posts>';
 		var element = $compile( html )( $rootScope );
@@ -71,11 +73,12 @@ describe( 'theDate directive', function() {
 		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
 			var n = i + 1;
 			expect( angular.element( '.the-date', element ).eq(i).text() )
-				.toEqual( $filter('date')( '2016-02-16T13:54:13Z', 'yyyy/MM/ddTH:mm:ssZ', 'Z' ) );
+				.toEqual( $filter('date')( date, format, 'Z' ) );
 		}
 	} ) );
 
-	it( 'Tests for <the-date> with format', inject( function( $filter, $rootScope, $compile ) {
+	it( 'Tests for <the-date> with format',
+				inject( function( $filter, $rootScope, $compile ) {
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
 						+ '<the-date format="yyyy/MM/dd"></the-date></have-posts>';
 		var element = $compile( html )( $rootScope );

@@ -88,9 +88,11 @@ describe( 'Directives', function() {
 				.toEqual( 'post-thumbnail.jpg' );
 	} ) );
 
-	it( 'Tests for <the-post-thumbnail size="full">', inject( function( $rootScope, $compile ) {
+	it( 'Tests for <the-post-thumbnail size="full">',
+				inject( function( $rootScope, $compile ) {
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-post-thumbnail size="full"></the-post-thumbnail></have-posts>';
+						+ '<the-post-thumbnail size="full"></the-post-thumbnail>'
+							+ '</have-posts>';
 		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
@@ -101,7 +103,8 @@ describe( 'Directives', function() {
 
 	it( 'Image size should be full>', inject( function( $rootScope, $compile ) {
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-post-thumbnail size="large"></the-post-thumbnail></have-posts>';
+						+ '<the-post-thumbnail size="large"></the-post-thumbnail>'
+							+'</have-posts>';
 		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
