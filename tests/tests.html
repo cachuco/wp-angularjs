@@ -17,9 +17,10 @@
 	<h2><a href="https://github.com/miya0001/wp-angular">GitHub</a></h2>
 </div>
 
-<have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts">
+<have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts" offset="0" per-page="5">
 	<the-post-thumbnail size="post-thumbnaiil" class="hello"></the-post-thumbnail>
 	<h1 class="entry-title"><the-title></the-title></h1>
+	<div class="entry-meta"><the-date></the-date></div>
 	<div class="entry-content">
 		<the-content></the-content>
 	</div>

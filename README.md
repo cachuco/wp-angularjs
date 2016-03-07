@@ -5,8 +5,9 @@
 This project is in progress...
 
 ```
-<have-posts api-root="http://example.com/wp-json/wp/v2" post-type="posts">
-	<the-post-thumbnail size="post-thumbnaiil" class="hello"></the-post-thumbnail>
+<have-posts api-root="http://example.com/wp-json/wp/v2"
+					post-type="posts" offset="0" per-page="5">
+	<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
 	<h1 class="entry-title"><the-title></the-title></h1>
 	<div class="entry-content">
 		<the-content></the-content>
