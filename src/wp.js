@@ -1,6 +1,9 @@
 'use strict';
 
-var wp = angular.module( "wp", [ "wp.services", "ngResource", "ngSanitize" ] );
+var myapp = angular.module( "myapp", [ "wp", "infinite-scroll" ] )
+
+var wp = angular.module( "wp",
+		[ "wp.services", "ngResource", "ngSanitize" ] );
 
 /**
  * @category directives
@@ -38,6 +41,21 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 		},
 		controller: [ "$scope", function( $scope ) {
 			// nothing to do, but we need here
+			$scope.load = function() {
+				if ( true == $scope.busy ) {
+					return;
+				}
+				$scope.busy = true;
+				wpQuery( $scope.apiRoot ).query( $scope.query ).$promise
+							.then( function( posts ) {
+					if ( posts.length ) {
+						$scope.posts = $scope.posts.concat( posts );
+						$scope.busy = false;
+						$scope.query.offset = parseInt( $scope.query.offset )
+								+ parseInt( $scope.perPage);
+					}
+				} );
+			}
 		} ],
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
@@ -67,17 +85,18 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
-						wpQuery( scope.apiRoot ).query( scope.query ).$promise
-								.then( function( posts ) {
-							scope.posts = posts;
-						} );
+						scope.load();
 					}
 				}
 			}
 		},
-		template: "<div class=\"have-posts\"><article class=\"{{ postType }}"
-					+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
-						+ "<div ng-transclude></div></article></div>"
+		template: "<div class=\"have-posts\">"
+					+ "<div infinite-scroll=\"load()\""
+								+ " infinite-scroll-distance=\"2\">"
+					+ "<article class=\"{{ postType }}"
+						+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
+							+ "<div ng-transclude></div></article>"
+								+ "</div></div>"
 	}
 } ] );
 
