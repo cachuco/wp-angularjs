@@ -1,4 +1,4 @@
-describe( 'Directives', function() {
+describe( 'havePosts directive', function() {
 
 	/**
 	 * Example of the custom template tag for testing
@@ -169,29 +169,6 @@ describe( 'Directives', function() {
 		expect( $rootScope.$$childTail.postType ).toEqual( 'posts' );
 	} ) );
 
-	// it( 'postId should be 123', inject( function( $rootScope, $compile ) {
-	// 	var html = '<have-posts api-root="' + api + '" post-type="posts" post-id="3">'
-	// 				+ '</have-posts>';
-	// 	var element = $compile( html )( $rootScope );
-	// 	$rootScope.$digest();
-	// 	$httpBackend.flush();
-	// 	expect( $rootScope.$$childTail.query ).toEqual( { endpoint: 'posts', id: '3' } );
-	// } ) );
-
-	it( 'the-id should be like 123', inject( function( $rootScope, $compile ) {
-		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-id></the-id></have-posts>'
-		var element = $compile( html )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( angular.element( '.the-id', element ).length ).toEqual( 3 );
-		for ( var i = 0; i < angular.element( '.the-id', element ).length; i++ ) {
-			var n = i + 1;
-			expect( angular.element( '.the-id', element ).eq(i).text() ).toEqual( ( n )
-				.toString() );
-		}
-	} ) );
-
 	it( 'Creates a custom template tag', inject( function( $rootScope, $compile ) {
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
 						+ '<my-permalink></my-permalink></have-posts>';
@@ -212,61 +189,5 @@ describe( 'Directives', function() {
 		var src = { key1: 'src1', key3: 'src3' };
 		var res = angular.extend( dst, src );
 		expect( res ).toEqual( { key1: 'src1', key2: 'dst2', key3: 'src3' } );
-	} ) );
-
-	it( 'Tests for <the-content>', inject( function( $rootScope, $compile ) {
-		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-content></the-content></have-posts>';
-		var element = $compile( html )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( angular.element( '.the-content', element ).length ).toEqual( 3 );
-		for ( var i = 0; i < angular.element( '.the-content', element ).length; i++ ) {
-			var n = i + 1;
-			expect( angular.element( '.the-content', element ).eq(i).html() )
-				.toEqual( '<p>Hello World(' + n + ')</p>' );
-		}
-	} ) );
-
-	it( 'Tests for <the-excerpt>', inject( function( $rootScope, $compile ) {
-		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-excerpt></the-excerpt></have-posts>';
-		var element = $compile( html )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( angular.element( '.the-excerpt', element ).length ).toEqual( 3 );
-		for ( var i = 0; i < angular.element( '.the-excerpt', element ).length; i++ ) {
-			var n = i + 1;
-			expect( angular.element( '.the-excerpt', element ).eq(i).html() )
-				.toEqual( '<p>This is the excerpt. (' + n + ')</p>' );
-		}
-	} ) );
-
-	it( 'Tests for <the-date>', inject( function( $filter, $rootScope, $compile ) {
-		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-date></the-date></have-posts>';
-		var element = $compile( html )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( angular.element( '.the-date', element ).length ).toEqual( 3 );
-		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
-			var n = i + 1;
-			expect( angular.element( '.the-date', element ).eq(i).text() )
-				.toEqual( $filter('date')( '2016-02-16T13:54:13Z', 'yyyy/MM/ddTH:mm:ssZ', 'Z' ) );
-		}
-	} ) );
-
-	it( 'Tests for <the-date> with format', inject( function( $filter, $rootScope, $compile ) {
-		var html = '<have-posts api-root="' + api + '" post-type="posts">'
-						+ '<the-date format="yyyy/MM/dd"></the-date></have-posts>';
-		var element = $compile( html )( $rootScope );
-		$rootScope.$digest();
-		$httpBackend.flush();
-		expect( angular.element( '.the-date', element ).length ).toEqual( 3 );
-		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
-			var n = i + 1;
-			expect( angular.element( '.the-date', element ).eq(i).text() )
-				.toEqual( $filter('date')( '2016-02-16T13:54:13Z', 'yyyy/MM/dd', 'Z' ) );
-		}
 	} ) );
 } );
