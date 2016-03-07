@@ -129,7 +129,8 @@ describe( 'havePosts directive', function() {
 		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
-		expect( $rootScope.$$childTail.query.offset ).toEqual( "11" );
+		// offset should be 11 + 10, because it is updated after load.
+		expect( $rootScope.$$childTail.query.offset ).toEqual( 21 );
 	} ) );
 
 	it( '<have-posts> should be div', inject( function( $rootScope, $compile ) {
@@ -155,10 +156,8 @@ describe( 'havePosts directive', function() {
 		var element = $compile( html )( $rootScope );
 		$rootScope.$digest();
 		$httpBackend.flush();
-		for ( var i = 0; i < element.children().length; i++ ) {
-			expect( angular.element( element.children()[i] ).hasClass( 'pages' ) )
-				.toEqual( true );
-		}
+		var e = angular.element( 'article', element ).eq( 0 );
+		expect( e.hasClass( 'pages' ) ).toEqual( true );
 	} ) );
 
 	it( 'postType should be posts', inject( function( $rootScope, $compile ) {
