@@ -4,7 +4,7 @@
   "description": "WP-API client for AngularJS",
   "scripts": {
     "test": "node ./node_modules/.bin/karma start tests/karma.conf.js",
-    "docs": "node ./node_modules/.bin/jsdoc2md src/*.js > docs/docs.md"
+    "docs": "node ./node_modules/.bin/jsdoc2md src/*.js"
   },
   "author": "Takayuki Miyauchi",
   "license": "MIT",

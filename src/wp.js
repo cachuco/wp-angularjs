@@ -26,7 +26,9 @@ var wp = angular.module( "wp", [
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | api-root  | string | Root url of the API. e.g. http://example.com/wp-json/wp/v2     |
- * | post-type | string | `posts` or `pages` or `media` or custom post type              |
+ * | post-type | string | `posts` or `pages` or `media` or custom post type.             |
+ * | per-page  | number | The number of posts per page. Default is 10.                   |
+ * | offset    | number | The number of post to displace or pass over. Default is 0.     |
  */
 wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 	return {
