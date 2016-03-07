@@ -50,6 +50,24 @@ myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 } ] );
 ```
 
+## Enables Infinite Scroll
+
+Please load [ngInfiniteScroll](https://sroze.github.io/ngInfiniteScroll/) like following.
+
+```
+<script type='text/javascript' src='path/to/jquery.min.js'></script>
+<script type='text/javascript' src='path/to/angular.min.js'></script>
+<script type='text/javascript' src='path/to/ng-infinite-scroll.min.js'></script>
+```
+
+Add `infinite-scroll` as a dependency.
+
+```
+angular.module( "app", [ "wp", "infinite-scroll" ] );
+```
+
+That's it.
+
 ## How to contribute
 
 ```

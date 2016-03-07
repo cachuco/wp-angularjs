@@ -1,9 +1,10 @@
 'use strict';
 
-var myapp = angular.module( "myapp", [ "wp", "infinite-scroll" ] )
-
-var wp = angular.module( "wp",
-		[ "wp.services", "ngResource", "ngSanitize" ] );
+var wp = angular.module( "wp", [
+	"wp.services",
+	"ngResource",
+	"ngSanitize"
+] );
 
 /**
  * @category directives
