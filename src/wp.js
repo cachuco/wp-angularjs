@@ -43,7 +43,6 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 			offset: '@'
 		},
 		controller: [ "$scope", function( $scope ) {
-			// nothing to do, but we need here
 			$scope.load = function() {
 				if ( true == $scope.busy ) {
 					return;
