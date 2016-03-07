@@ -242,7 +242,7 @@ describe( 'Directives', function() {
 		}
 	} ) );
 
-	it( 'Tests for <the-date>', inject( function( $rootScope, $compile ) {
+	it( 'Tests for <the-date>', inject( function( $filter, $rootScope, $compile ) {
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
 						+ '<the-date></the-date></have-posts>';
 		var element = $compile( html )( $rootScope );
@@ -251,12 +251,12 @@ describe( 'Directives', function() {
 		expect( angular.element( '.the-date', element ).length ).toEqual( 3 );
 		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
 			var n = i + 1;
-			expect( angular.element( '.the-date', element ).eq(i).html() )
-				.toEqual( '2016/02/16 22:54:13' );
+			expect( angular.element( '.the-date', element ).eq(i).text() )
+				.toEqual( $filter('date')( '2016-02-16T13:54:13Z', 'yyyy/MM/ddTH:mm:ssZ', 'Z' ) );
 		}
 	} ) );
 
-	it( 'Tests for <the-date> with format', inject( function( $rootScope, $compile ) {
+	it( 'Tests for <the-date> with format', inject( function( $filter, $rootScope, $compile ) {
 		var html = '<have-posts api-root="' + api + '" post-type="posts">'
 						+ '<the-date format="yyyy/MM/dd"></the-date></have-posts>';
 		var element = $compile( html )( $rootScope );
@@ -265,8 +265,8 @@ describe( 'Directives', function() {
 		expect( angular.element( '.the-date', element ).length ).toEqual( 3 );
 		for ( var i = 0; i < angular.element( '.the-date', element ).length; i++ ) {
 			var n = i + 1;
-			expect( angular.element( '.the-date', element ).eq(i).html() )
-				.toEqual( '2016/02/16' );
+			expect( angular.element( '.the-date', element ).eq(i).text() )
+				.toEqual( $filter('date')( '2016-02-16T13:54:13Z', 'yyyy/MM/dd', 'Z' ) );
 		}
 	} ) );
 } );

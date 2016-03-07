@@ -322,7 +322,7 @@ wp.directive( "theDate", [ function() {
 			return {
 				post: function postLink( scope, element, attrs, controller ) {
 					if ( ! attrs.format ) {
-						scope.format = "yyyy/MM/dd H:mm:ss";
+						scope.format = "yyyy/MM/ddTH:mm:ssZ";
 					} else {
 						scope.format = attrs.format;
 					}
