@@ -111,6 +111,7 @@ Displays the post thumbnail of the current post.
 | Attribute | Type   | Details                                                        |
 |-----------|--------|----------------------------------------------------------------|
 | size      | string | Size of the post thumbnail. Default is `full`.                 |
+| href      | string | Specify a link URL like `#/app/posts/:id`.                     |
 
 **Example**  
 ```html
@@ -128,6 +129,20 @@ Uses `size` attribute.
 Then:
 ```
 <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
+```
+
+If you need a link to the post on your app. Please add `href` as attribute.
+
+```html
+<the-post-thumbnail href="#/posts/:id"></the-post-thumbnail>
+```
+`:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
+
+Then:
+```html
+<div class="the-post-thumbnail">
+  <a href="#/posts/:id"><img src="http://example.com/image.jpg"></a>
+</div>
 ```
 ---
 ### &lt;the-id&gt;
