@@ -36,7 +36,7 @@ This project is in progress...
 </html>
 ```
 
-Demo: http://miya0001.github.io/wp-angular/demo/
+Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.github.io/wp-angular/tests/tests.html)
 
 ## API Reference
 
@@ -53,7 +53,7 @@ The `havePosts` directive is a WordPress loop.
 | per-page  | number | The number of posts per page. Default is 10.                   |
 | offset    | number | The number of post to displace or pass over. Default is 0.     |
 
-**Example**
+**Example**  
 ```html
 <have-posts api-root="http://example.com" post-type="posts">
   <h2 class="entry-title"><the-title></the-title></h2>
@@ -64,7 +64,13 @@ The `havePosts` directive is a WordPress loop.
 ### &lt;the-title&gt;
 Displays the post title of the current post.
 
-**Example**
+**Attributes**
+
+| Attribute | Type   | Details                                                        |
+|-----------|--------|----------------------------------------------------------------|
+| href      | string | Specify a link URL like `#/app/posts/:id`.                     |
+
+**Example**  
 ```html
 <the-title></the-title>
 ```
@@ -72,11 +78,23 @@ Then:
 ```html
 <div class="the-title">Hello World</div>
 ```
+
+If you need a link to the post on your app. Please add `href` as attribute.
+
+```html
+<the-title href="#/posts/:id"></the-title>
+```
+`:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
+
+Then:
+```html
+<div class="the-title"><a href="#/posts/:id">Hello World</a></div>
+```
 ---
 ### &lt;the-content&gt;
 Displays the post content of the current post.
 
-**Example**
+**Example**  
 ```html
 <the-content></the-content>
 ```
@@ -88,12 +106,13 @@ Then:
 ### &lt;the-post-thumbnail&gt;
 Displays the post thumbnail of the current post.
 
-#### Attributes
+**Attributes**
+
 | Attribute | Type   | Details                                                        |
 |-----------|--------|----------------------------------------------------------------|
 | size      | string | Size of the post thumbnail. Default is `full`.                 |
 
-**Example**
+**Example**  
 ```html
 <the-post-thumbnail></the-post-thumbnail>
 ```
@@ -114,7 +133,7 @@ Then:
 ### &lt;the-id&gt;
 Displays the ID of the current post.
 
-**Example**
+**Example**  
 ```
 <the-id></the-id>
 ```
@@ -126,7 +145,7 @@ Then:
 ### &lt;the-excerpt&gt;
 Displays the excerpt of the current post.
 
-**Example**
+**Example**  
 Place the code like following into your HTML.
 ```
 <the-excerpt></the-excerpt>
@@ -139,12 +158,13 @@ Then you will get like following.
 ### &lt;the-date&gt;
 Displays the date of the current post.
 
-#### Attributes
+**Attributes**
+
 | Attribute | Type   | Details                                                        |
 |-----------|--------|----------------------------------------------------------------|
 | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
 
-**Example**
+**Example**  
 Place the code like following into your HTML.
 ```
 <the-date></the-date>
@@ -198,11 +218,11 @@ myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 Please load [ngInfiniteScroll](https://sroze.github.io/ngInfiniteScroll/) like following.
 
 ```
-<script type='text/javascript' src='path/to/jquery.min.js'></script>
-<script type='text/javascript' src='path/to/angular.min.js'></script>
+<script src="path/to/jquery.min.js"></script>
+<script src="path/to/angularjs/1.5.0/angular.min.js"></script>
 <script src="path/to/angularjs/1.5.0/angular-resource.min.js"></script>
 <script src="path/to/angularjs/1.5.0/angular-sanitize.min.js"></script>
-<script type='text/javascript' src='path/to/ng-infinite-scroll.min.js'></script>
+<script src="path/to/ng-infinite-scroll.min.js"></script>
 ```
 
 Add `infinite-scroll` as a dependency.

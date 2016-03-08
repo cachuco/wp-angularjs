@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "WP-API client for AngularJS",
   "scripts": {
-    "build": "./node_modules/.bin/gulp",
+    "build": "./node_modules/.bin/gulp && npm run docs",
     "test": "./node_modules/.bin/gulp && ./node_modules/.bin/karma start tests/karma.conf.js",
     "docs": "./node_modules/.bin/jsdoc2md -t jsdoc2md/README.hbs src/*.js > README.md"
   },

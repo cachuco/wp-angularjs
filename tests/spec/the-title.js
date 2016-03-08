@@ -73,5 +73,15 @@ describe( 'Directives', function() {
 			expect( angular.element( '.the-title', element ).eq(i).html() )
 				.toEqual( 'Title(' + n + ')' );
 		}
+		expect( angular.element( '.the-title a', element ).length ).toEqual( 0 );
+	} ) );
+
+	it( 'Tests for <the-title>', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts">'
+						+ '<the-title href="#/posts/:id"></the-title></have-posts>';
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( angular.element( '.the-title a', element ).length ).toEqual( 3 );
 	} ) );
 } );

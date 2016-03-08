@@ -11,6 +11,7 @@ var wp = angular.module( "wp", [
  * @name <have-posts>
  *
  * @description
+ *
  * The `havePosts` directive is a WordPress loop.
  *
  * **Attributes**
@@ -108,7 +109,14 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  * @name <the-title>
  *
  * @description
+ *
  * Displays the post title of the current post.
+ *
+ * **Attributes**
+ *
+ * | Attribute | Type   | Details                                                        |
+ * |-----------|--------|----------------------------------------------------------------|
+ * | href      | string | Specify a link URL like `#/app/posts/:id`.                     |
  *
  * @example
  *
@@ -118,6 +126,18 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  * Then:
  * ```html
  * <div class="the-title">Hello World</div>
+ * ```
+ *
+ * If you need a link to the post on your app. Please add `href` as attribute.
+ *
+ * ```html
+ * <the-title href="#/posts/:id"></the-title>
+ * ```
+ * `:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
+ *
+ * Then:
+ * ```html
+ * <div class="the-title"><a href="#/posts/:id">Hello World</a></div>
  * ```
  */
 wp.directive( "theTitle", [ "$sce", function( $sce ) {
@@ -129,11 +149,29 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
 				post: function postLink( scope, element, attrs, controller ) {
-					scope.title = scope.$parent.post.title.rendered;
+					var post = scope.$parent.post;
+					scope.title = post.title.rendered;
+					if ( tAttrs.href ) {
+						scope.permalink = tAttrs.href;
+						scope.permalink = scope.permalink.replace( ':id', post.id );
+						scope.permalink = scope.permalink.replace( ':slug', post.slug );
+					} else {
+						scope.permalink = '';
+					}
+					element.remove( 'href' );
 				}
 			}
 		},
-		template: "<div class=\"the-title\" ng-bind-html=\"title\">{{ title }}</div>"
+		template: function( tElement, tAttrs ) {
+			if ( tAttrs.href ) {
+				return "<div class=\"the-title\">"
+						+ "<a ng-href=\"{{ permalink }}\" ng-bind-html=\"title\">"
+							+ "{{ title }}</a></div>";
+			} else {
+				return "<div class=\"the-title\" ng-bind-html=\"title\">"
+						+ "{{ title }}</div>";
+			}
+		}
 	}
 } ] );
 
@@ -179,7 +217,8 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * @description
  * Displays the post thumbnail of the current post.
  *
- * #### Attributes
+ * **Attributes**
+ *
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | size      | string | Size of the post thumbnail. Default is `full`.                 |
@@ -242,9 +281,11 @@ wp.directive( "thePostThumbnail", [ function() {
  * @name <the-id>
  *
  * @description
+ *
  * Displays the ID of the current post.
  *
  * @example
+ *
  * ```
  * <the-id></the-id>
  * ```
@@ -274,9 +315,11 @@ wp.directive( "theId", [ function() {
  * @name <the-excerpt>
  *
  * @description
+ *
  * Displays the excerpt of the current post.
  *
  * @example
+ *
  * Place the code like following into your HTML.
  * ```
  * <the-excerpt></the-excerpt>
@@ -309,9 +352,11 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
  * @name <the-date>
  *
  * @description
+ *
  * Displays the date of the current post.
  *
- * #### Attributes
+ * **Attributes**
+ *
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
