@@ -4,20 +4,36 @@
 
 This project is in progress...
 
+## Getting Started
+
 ```
-<have-posts api-root="http://example.com/wp-json/wp/v2"
-					post-type="posts" offset="0" per-page="5">
-	<header class="entry-header">
-		<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
-		<h1 class="entry-title"><the-title></the-title></h1>
-		<div class="entry-meta">
-			<the-date format="yyyy/mm/dd"></the-date>
+<!DOCTYPE html>
+<html ng-app="wp">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="path/to/style.css">
+	<title>WP-Angular</title>
+	<script src="path/to/angularjs/1.5.0/angular.min.js"></script>
+	<script src="path/to/angularjs/1.5.0/angular-resource.min.js"></script>
+	<script src="path/to/angularjs/1.5.0/angular-sanitize.min.js"></script>
+	<script src="path/to/wp-angular.min.js"></script>
+</head>
+<body>
+	<have-posts api-root="http://example.com/wp-json/wp/v2"
+						post-type="posts" offset="0" per-page="5">
+		<header class="entry-header">
+			<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
+			<h1 class="entry-title"><the-title></the-title></h1>
+			<div class="entry-meta">
+				<the-date format="yyyy/mm/dd"></the-date>
+			</div>
+		</header>
+		<div class="entry-content">
+			<the-content></the-content>
 		</div>
-	</header>
-	<div class="entry-content">
-		<the-content></the-content>
-	</div>
-</have-posts>
+	</have-posts>
+</body>
+</html>
 ```
 
 Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.github.io/wp-angular/tests/tests.html)
