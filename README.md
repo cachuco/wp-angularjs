@@ -44,7 +44,7 @@ The `havePosts` directive is a WordPress loop.
   <div class="entry-content"><the-content></the-content></div>
 </have-posts>
 ```
--------------------------------------------------
+---
 ### &lt;the-title&gt;
 Displays the post title of the current post.
 
@@ -56,7 +56,7 @@ Then:
 ```html
 <div class="the-title">Hello World</div>
 ```
--------------------------------------------------
+---
 ### &lt;the-content&gt;
 Displays the post content of the current post.
 
@@ -68,7 +68,7 @@ Then:
 ```html
 <div class="the-content"><p>Hello World</p></div>
 ```
--------------------------------------------------
+---
 ### &lt;the-post-thumbnail&gt;
 Displays the post thumbnail of the current post.
 
@@ -94,7 +94,7 @@ Then:
 ```
 <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
 ```
--------------------------------------------------
+---
 ### &lt;the-id&gt;
 Displays the ID of the current post.
 
@@ -106,7 +106,7 @@ Then:
 ```
 <div class="the-id">123</div>
 ```
--------------------------------------------------
+---
 ### &lt;the-excerpt&gt;
 Displays the excerpt of the current post.
 
@@ -119,7 +119,7 @@ Then you will get like following.
 ```
 <div class="the-excerpt"><p>Hello World.</p></div>
 ```
--------------------------------------------------
+---
 ### &lt;the-date&gt;
 Displays the date of the current post.
 
@@ -147,7 +147,7 @@ Then you will get like following.
 ```
 <div class="the-date">2016-02-16</div>
 ```
--------------------------------------------------
+---
 
 ## Creates your custom template tag
 
