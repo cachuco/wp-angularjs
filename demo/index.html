@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html ng-app="wp">
+<html ng-app="myapp">
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="./style.css">
 	<title>WP-Angular</title>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.min.js"></script>
+	<script src="../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js"></script>
 	<script src="../build/wp-angular.min.js"></script>
 </head>
 <body>
@@ -25,9 +27,12 @@
 		</div>
 	</header>
 	<div class="entry-content">
-		<the-content></the-content>
+		<the-excerpt></the-excerpt>
 	</div>
 </have-posts>
 
+<script type="text/javascript">
+	angular.module( "myapp", [ "wp", "infinite-scroll" ] );
+</script>
 </body>
 </html>
