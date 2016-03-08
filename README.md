@@ -2,7 +2,20 @@
 
 [![Build Status](https://travis-ci.org/miya0001/wp-angular.svg?branch=master)](https://travis-ci.org/miya0001/wp-angular)
 
+A WP-API client for [AngularJS](https://angularjs.org/).
+
 This project is in progress...
+
+## Requires
+
+* [AngularJS](https://angularjs.org/)
+	* [ngResource](https://github.com/angular/angular.js/tree/master/src/ngResource)
+	* [ngSanitize](https://github.com/angular/angular.js/tree/master/src/ngSanitize)
+
+### Recommended
+
+* [ngInfiniteScroll](https://sroze.github.io/ngInfiniteScroll/)
+* [jQuery](https://jquery.com/)
 
 ## Getting Started
 
@@ -36,7 +49,7 @@ This project is in progress...
 </html>
 ```
 
-Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.github.io/wp-angular/tests/tests.html)
+Demo: http://miya0001.github.io/wp-angular/demo/
 
 ## API Reference
 
