@@ -12,7 +12,7 @@ This project is in progress...
 	* [ngResource](https://github.com/angular/angular.js/tree/master/src/ngResource)
 	* [ngSanitize](https://github.com/angular/angular.js/tree/master/src/ngSanitize)
 
-### Recommended
+Recommended:
 
 * [ngInfiniteScroll](https://sroze.github.io/ngInfiniteScroll/)
 * [jQuery](https://jquery.com/)
