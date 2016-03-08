@@ -88,7 +88,7 @@ If you need a link to the post on your app. Please add `href` as attribute.
 
 Then:
 ```html
-<div class="the-title"><a href="#/posts/:id">Hello World</a></div>
+<div class="the-title"><a href="#/posts/123">Hello World</a></div>
 ```
 ---
 ### &lt;the-content&gt;
@@ -141,7 +141,7 @@ If you need a link to the post on your app. Please add `href` as attribute.
 Then:
 ```html
 <div class="the-post-thumbnail">
-  <a href="#/posts/:id"><img src="http://example.com/image.jpg"></a>
+  <a href="#/posts/123"><img src="http://example.com/image.jpg"></a>
 </div>
 ```
 ---

@@ -137,7 +137,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  *
  * Then:
  * ```html
- * <div class="the-title"><a href="#/posts/:id">Hello World</a></div>
+ * <div class="the-title"><a href="#/posts/123">Hello World</a></div>
  * ```
  */
 wp.directive( "theTitle", [ "$sce", function( $sce ) {
@@ -252,7 +252,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * Then:
  * ```html
  * <div class="the-post-thumbnail">
- *   <a href="#/posts/:id"><img src="http://example.com/image.jpg"></a>
+ *   <a href="#/posts/123"><img src="http://example.com/image.jpg"></a>
  * </div>
  * ```
  */
