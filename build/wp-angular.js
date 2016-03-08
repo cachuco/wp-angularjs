@@ -158,7 +158,6 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 					} else {
 						scope.permalink = '';
 					}
-					element.remove( 'href' );
 				}
 			}
 		},
@@ -222,6 +221,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * | Attribute | Type   | Details                                                        |
  * |-----------|--------|----------------------------------------------------------------|
  * | size      | string | Size of the post thumbnail. Default is `full`.                 |
+ * | href      | string | Specify a link URL like `#/app/posts/:id`.                     |
  *
  * @example
  *
@@ -240,6 +240,20 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * Then:
  * ```
  * <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
+ * ```
+ *
+ * If you need a link to the post on your app. Please add `href` as attribute.
+ *
+ * ```html
+ * <the-post-thumbnail href="#/posts/:id"></the-post-thumbnail>
+ * ```
+ * `:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
+ *
+ * Then:
+ * ```html
+ * <div class="the-post-thumbnail">
+ *   <a href="#/posts/:id"><img src="http://example.com/image.jpg"></a>
+ * </div>
  * ```
  */
 wp.directive( "thePostThumbnail", [ function() {
@@ -268,11 +282,28 @@ wp.directive( "thePostThumbnail", [ function() {
 					if ( img ) {
 						scope.image_src = img;
 					}
+
+					var post = scope.$parent.post;
+					if ( tAttrs.href ) {
+						scope.permalink = tAttrs.href;
+						scope.permalink = scope.permalink.replace( ':id', post.id );
+						scope.permalink = scope.permalink.replace( ':slug', post.slug );
+					} else {
+						scope.permalink = '';
+					}
 				}
 			}
 		},
-		template: "<div class=\"the-post-thumbnail\">"
-						+ "<img ng-src=\"{{ image_src }}\"></div>"
+		template: function( tElement, tAttrs ) {
+			if ( tAttrs.href ) {
+				return "<div class=\"the-post-thumbnail\">"
+						+ "<a ng-href=\"{{ permalink }}\">"
+							+ "<img ng-src=\"{{ image_src }}\"></a></div>";
+			} else {
+				return "<div class=\"the-post-thumbnail\">"
+							+ "<img ng-src=\"{{ image_src }}\"></div>"
+			}
+		}
 	}
 } ] );
 
