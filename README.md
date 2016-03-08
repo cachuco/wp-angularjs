@@ -45,7 +45,7 @@ The `havePosts` directive is a WordPress loop.
 | per-page  | number | The number of posts per page. Default is 10.                   |
 | offset    | number | The number of post to displace or pass over. Default is 0.     |
 
-<hr>
+-------------------------------------------------
 ### theTitle
 Displays the post title of the current post.
 
@@ -59,7 +59,7 @@ Then:
 <div class="the-title">Hello World</div>
 ```
 
-<hr>
+-------------------------------------------------
 ### theContent
 Displays the post content of the current post.
 
@@ -73,7 +73,7 @@ Then:
 <div class="the-content"><p>Hello World</p></div>
 ```
 
-<hr>
+-------------------------------------------------
 ### thePostThumbnail
 Displays the post thumbnail of the current post.
 
@@ -95,7 +95,7 @@ HTML: <the-post-thumbnail size="full"></the-post-thumbnail>
 Result: <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
 ```
 
-<hr>
+-------------------------------------------------
 ### theId
 Displays the ID of the current post.
 
@@ -107,7 +107,7 @@ Then:
 <div class="the-id">123</div>
 ```
 
-<hr>
+-------------------------------------------------
 ### theExcerpt
 Displays the excerpt of the current post.
 
@@ -121,7 +121,7 @@ Then you will get like following.
 <div class="the-excerpt"><p>Hello World.</p></div>
 ```
 
-<hr>
+-------------------------------------------------
 ### theDate
 Displays the date of the current post.
 
@@ -150,7 +150,7 @@ Then you will get like following.
 <div class="the-date">2016-02-16</div>
 ```
 
-<hr>
+-------------------------------------------------
 
 ## Creates your custom template tag
 
