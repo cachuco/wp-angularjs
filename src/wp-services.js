@@ -1,7 +1,12 @@
-'use strict';
-
 angular.module( "wp.services", [ "ngResource" ] )
 
+/**
+ * @category service
+ * @name wpQuery
+ *
+ * @description
+ * Gets the WordPress objects from wp-api.
+ */
 .factory( "wpQuery", [ "$resource", function( $resource ){
 	return function( apiRoot ) {
 		var api = apiRoot + "/:endpoint/:id";

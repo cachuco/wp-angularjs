@@ -1,5 +1,3 @@
-'use strict';
-
 var wp = angular.module( "wp", [
 	"wp.services",
 	"ngResource",
