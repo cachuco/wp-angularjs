@@ -25,9 +25,6 @@ Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.gi
 ## API Reference
 
 
-### wpQuery
-Gets the WordPress objects from wp-api.
-
 ### havePosts
 The `havePosts` directive is a WordPress loop.
 
@@ -146,6 +143,7 @@ Then you will get like following.
 ```
 <div class="the-date">2016-02-16</div>
 ```
+
 
 ## Creates your custom template tag
 
