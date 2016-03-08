@@ -72,5 +72,23 @@ That's it.
 
 ```
 $ npm install
+```
+
+Run testing.
+
+```
 $ npm test
 ```
+
+Build js/wp-angular.min.js.
+
+```
+$ npm run build
+```
+
+Build documentation.
+
+```
+$ npm run docs
+```
+
