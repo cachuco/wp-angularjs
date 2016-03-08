@@ -40,8 +40,17 @@ Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.gi
 
 ## API Reference
 
+* [<have-posts>](#have-posts)
+* [<the-title>](#the-title)
+* [<the-content>](#the-content)
+* [<the-post-thumbnail>](#the-post-thumbnail)
+* [<the-id>](#the-id)
+* [<the-excerpt>](#the-excerpt)
+* [<the-date>](#the-date)
 
-### &lt;have-posts&gt;
+---
+
+### <have-posts>
 The `havePosts` directive is a WordPress loop.
 
 **Attributes**
@@ -61,7 +70,7 @@ The `havePosts` directive is a WordPress loop.
 </have-posts>
 ```
 ---
-### &lt;the-title&gt;
+### <the-title>
 Displays the post title of the current post.
 
 **Attributes**
@@ -91,7 +100,7 @@ Then:
 <div class="the-title"><a href="#/posts/123">Hello World</a></div>
 ```
 ---
-### &lt;the-content&gt;
+### <the-content>
 Displays the post content of the current post.
 
 **Example**  
@@ -103,7 +112,7 @@ Then:
 <div class="the-content"><p>Hello World</p></div>
 ```
 ---
-### &lt;the-post-thumbnail&gt;
+### <the-post-thumbnail>
 Displays the post thumbnail of the current post.
 
 **Attributes**
@@ -145,7 +154,7 @@ Then:
 </div>
 ```
 ---
-### &lt;the-id&gt;
+### <the-id>
 Displays the ID of the current post.
 
 **Example**  
@@ -157,7 +166,7 @@ Then:
 <div class="the-id">123</div>
 ```
 ---
-### &lt;the-excerpt&gt;
+### <the-excerpt>
 Displays the excerpt of the current post.
 
 **Example**  
@@ -170,7 +179,7 @@ Then you will get like following.
 <div class="the-excerpt"><p>Hello World.</p></div>
 ```
 ---
-### &lt;the-date&gt;
+### <the-date>
 Displays the date of the current post.
 
 **Attributes**
