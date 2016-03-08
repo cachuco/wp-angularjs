@@ -1,7 +1,9 @@
+/**
+ * @module wp.services
+ */
 angular.module( "wp.services", [ "ngResource" ] )
 
 /**
- * @category service
  * @name wpQuery
  *
  * @description

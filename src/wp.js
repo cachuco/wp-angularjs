@@ -1,3 +1,6 @@
+/**
+ * @module wp
+ */
 var wp = angular.module( "wp", [
 	"wp.services",
 	"ngResource",
@@ -5,7 +8,6 @@ var wp = angular.module( "wp", [
 ] );
 
 /**
- * @category directives
  * @name havePosts
  *
  * @description
@@ -102,7 +104,6 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 
 
 /**
- * @category directives
  * @name theTitle
  *
  * @description
@@ -137,7 +138,6 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 
 
 /**
- * @category directives
  * @name theContent
  *
  * @description
@@ -173,7 +173,6 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
 
 
 /**
- * @category directives
  * @name thePostThumbnail
  *
  * @description
@@ -233,7 +232,6 @@ wp.directive( "thePostThumbnail", [ function() {
 
 
 /**
- * @category directives
  * @name theId
  *
  * @description
@@ -265,7 +263,6 @@ wp.directive( "theId", [ function() {
 
 
 /**
- * @category directives
  * @name theExcerpt
  *
  * @description
@@ -301,7 +298,6 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
 
 
 /**
- * @category directives
  * @name theDate
  *
  * @description
