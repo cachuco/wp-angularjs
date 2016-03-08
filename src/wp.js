@@ -8,7 +8,7 @@ var wp = angular.module( "wp", [
 ] );
 
 /**
- * @name havePosts
+ * @name <have-posts>
  *
  * @description
  * The `havePosts` directive is a WordPress loop.
@@ -105,7 +105,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 
 
 /**
- * @name theTitle
+ * @name <the-title>
  *
  * @description
  * Displays the post title of the current post.
@@ -139,7 +139,7 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 
 
 /**
- * @name theContent
+ * @name <the-content>
  *
  * @description
  * Displays the post content of the current post.
@@ -174,7 +174,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
 
 
 /**
- * @name thePostThumbnail
+ * @name <the-post-thumbnail>
  *
  * @description
  * Displays the post thumbnail of the current post.
@@ -239,7 +239,7 @@ wp.directive( "thePostThumbnail", [ function() {
 
 
 /**
- * @name theId
+ * @name <the-id>
  *
  * @description
  * Displays the ID of the current post.
@@ -271,7 +271,7 @@ wp.directive( "theId", [ function() {
 
 
 /**
- * @name theExcerpt
+ * @name <the-excerpt>
  *
  * @description
  * Displays the excerpt of the current post.
@@ -306,7 +306,7 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
 
 
 /**
- * @name theDate
+ * @name <the-date>
  *
  * @description
  * Displays the date of the current post.
@@ -317,6 +317,7 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
  * | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
  *
  * @example
+ *
  * Place the code like following into your HTML.
  * ```
  * <the-date></the-date>
