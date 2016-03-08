@@ -224,7 +224,7 @@ Then you will get like following.
 
 ## Creates your custom template tag
 
-```
+```js
 // Registers your module, you should import `wp`.
 var myapp = angular.module( "myapp", [ "wp" ] );
 
@@ -245,7 +245,7 @@ myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 				}
 			}
 		},
-		template: "<a ng-href=\"#!/post/\"></a>"
+		template: "<a ng-href=\"#!/post/{{ post_id }}\">{{ title }}</a>"
 	}
 } ] );
 ```
@@ -254,7 +254,7 @@ myapp.directive( "myPermalink", [ '$sce', function( $sce ) {
 
 Please load [ngInfiniteScroll](https://sroze.github.io/ngInfiniteScroll/) like following.
 
-```
+```html
 <script src="path/to/jquery.min.js"></script>
 <script src="path/to/angularjs/1.5.0/angular.min.js"></script>
 <script src="path/to/angularjs/1.5.0/angular-resource.min.js"></script>
@@ -264,7 +264,7 @@ Please load [ngInfiniteScroll](https://sroze.github.io/ngInfiniteScroll/) like f
 
 Add `infinite-scroll` as a dependency.
 
-```
+```js
 angular.module( "app", [ "wp", "infinite-scroll" ] );
 ```
 
