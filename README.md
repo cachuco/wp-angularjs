@@ -6,7 +6,7 @@ This project is in progress...
 
 ## Getting Started
 
-```
+```html
 <!DOCTYPE html>
 <html ng-app="wp">
 <head>
