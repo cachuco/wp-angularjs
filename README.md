@@ -4,20 +4,45 @@
 
 This project is in progress...
 
-```
-<have-posts api-root="http://example.com/wp-json/wp/v2"
-					post-type="posts" offset="0" per-page="5">
-	<header class="entry-header">
-		<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
-		<h1 class="entry-title"><the-title></the-title></h1>
-		<div class="entry-meta">
-			<the-date format="yyyy/mm/dd"></the-date>
+## Getting Started
+
+```html
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="path/to/style.css">
+	<title>WP-Angular</title>
+	<script src="path/to/angular.min.js"></script>
+	<script src="path/to/angular-resource.min.js"></script>
+	<script src="path/to/angular-sanitize.min.js"></script>
+	<script src="path/to/wp-angular.min.js"></script>
+	<script src="path/to/my-controller.min.js"></script>
+</head>
+<body>
+
+	<have-posts api-root="http://example.com/wp-json/wp/v2"
+						post-type="posts" offset="0" per-page="5">
+		<header class="entry-header">
+			<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
+			<h1 class="entry-title"><the-title></the-title></h1>
+			<div class="entry-meta">
+				<the-date format="yyyy/mm/dd"></the-date>
+			</div>
+		</header>
+		<div class="entry-content">
+			<the-content></the-content>
 		</div>
-	</header>
-	<div class="entry-content">
-		<the-content></the-content>
-	</div>
-</have-posts>
+	</have-posts>
+
+	<script type="text/javascript">
+		var myapp = angular.module( "myapp", [ "wp" ] );
+		.controller( 'myControll', function( $scope ) {
+			// something to do
+		} )
+	</script>
+</body>
+</html>
 ```
 
 Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.github.io/wp-angular/tests/tests.html)
@@ -37,7 +62,7 @@ The `havePosts` directive is a WordPress loop.
 | per-page  | number | The number of posts per page. Default is 10.                   |
 | offset    | number | The number of post to displace or pass over. Default is 0.     |
 
-**Example**  
+**Example**
 ```html
 <have-posts api-root="http://example.com" post-type="posts">
   <h2 class="entry-title"><the-title></the-title></h2>
@@ -48,7 +73,7 @@ The `havePosts` directive is a WordPress loop.
 ### theTitle
 Displays the post title of the current post.
 
-**Example**  
+**Example**
 ```html
 <the-title></the-title>
 ```
@@ -60,7 +85,7 @@ Then:
 ### theContent
 Displays the post content of the current post.
 
-**Example**  
+**Example**
 ```html
 <the-content></the-content>
 ```
@@ -77,7 +102,7 @@ Displays the post thumbnail of the current post.
 |-----------|--------|----------------------------------------------------------------|
 | size      | string | Size of the post thumbnail. Default is `full`.                 |
 
-**Example**  
+**Example**
 ```html
 <the-post-thumbnail></the-post-thumbnail>
 ```
@@ -98,7 +123,7 @@ Then:
 ### theId
 Displays the ID of the current post.
 
-**Example**  
+**Example**
 ```
 <the-id></the-id>
 ```
@@ -110,7 +135,7 @@ Then:
 ### theExcerpt
 Displays the excerpt of the current post.
 
-**Example**  
+**Example**
 Place the code like following into your HTML.
 ```
 <the-excerpt></the-excerpt>
@@ -128,7 +153,7 @@ Displays the date of the current post.
 |-----------|--------|----------------------------------------------------------------|
 | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
 
-**Example**  
+**Example**
 Place the code like following into your HTML.
 ```
 <the-date></the-date>
