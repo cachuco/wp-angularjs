@@ -25,7 +25,7 @@ Demo: [http://miya0001.github.io/wp-angular/tests/tests.html](http://miya0001.gi
 ## API Reference
 
 
-### `havePosts`
+### havePosts
 The `havePosts` directive is a WordPress loop.
 
 #### Example
@@ -45,7 +45,8 @@ The `havePosts` directive is a WordPress loop.
 | per-page  | number | The number of posts per page. Default is 10.                   |
 | offset    | number | The number of post to displace or pass over. Default is 0.     |
 
-### `theTitle`
+<hr>
+### theTitle
 Displays the post title of the current post.
 
 #### Example
@@ -58,7 +59,8 @@ Then:
 <div class="the-title">Hello World</div>
 ```
 
-### `theContent`
+<hr>
+### theContent
 Displays the post content of the current post.
 
 #### Example
@@ -71,7 +73,8 @@ Then:
 <div class="the-content"><p>Hello World</p></div>
 ```
 
-### `thePostThumbnail`
+<hr>
+### thePostThumbnail
 Displays the post thumbnail of the current post.
 
 #### Attributes
@@ -92,7 +95,8 @@ HTML: <the-post-thumbnail size="full"></the-post-thumbnail>
 Result: <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
 ```
 
-### `theId`
+<hr>
+### theId
 Displays the ID of the current post.
 
 ```
@@ -103,7 +107,8 @@ Then:
 <div class="the-id">123</div>
 ```
 
-### `theExcerpt`
+<hr>
+### theExcerpt
 Displays the excerpt of the current post.
 
 #### Example
@@ -116,7 +121,8 @@ Then you will get like following.
 <div class="the-excerpt"><p>Hello World.</p></div>
 ```
 
-### `theDate`
+<hr>
+### theDate
 Displays the date of the current post.
 
 #### Attributes
@@ -144,6 +150,7 @@ Then you will get like following.
 <div class="the-date">2016-02-16</div>
 ```
 
+<hr>
 
 ## Creates your custom template tag
 
