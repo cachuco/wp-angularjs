@@ -1,11 +1,11 @@
 /**
  * @module wp
  */
-var wp = angular.module( "wp", [
+angular.module( "wp", [
 	"wp.services",
 	"ngResource",
 	"ngSanitize"
-] );
+] )
 
 /**
  * @name have-posts
@@ -32,7 +32,7 @@ var wp = angular.module( "wp", [
  * </have-posts>
  * ```
  */
-wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
+.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 	return {
 		restrict: "E",
 		replace: true,
@@ -102,8 +102,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 							+ "<div ng-transclude></div></article>"
 								+ "</div></div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-title
@@ -140,7 +139,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  * <div class="the-title"><a href="#/posts/123">Hello World</a></div>
  * ```
  */
-wp.directive( "theTitle", [ "$sce", function( $sce ) {
+.directive( "theTitle", [ "$sce", function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -172,8 +171,7 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 			}
 		}
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-content
@@ -191,7 +189,7 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
  * <div class="the-content"><p>Hello World</p></div>
  * ```
  */
-wp.directive( "theContent", [ "$sce", function( $sce ) {
+.directive( "theContent", [ "$sce", function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -207,8 +205,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
 		template: "<div class=\"the-content\" ng-bind-html=\"content\">"
 						+ "{{ content }}</div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-post-thumbnail
@@ -256,7 +253,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * </div>
  * ```
  */
-wp.directive( "thePostThumbnail", [ function() {
+.directive( "thePostThumbnail", [ function() {
 	return{
 		restrict:'E',
 		replace: true,
@@ -305,8 +302,7 @@ wp.directive( "thePostThumbnail", [ function() {
 			}
 		}
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-id
@@ -325,7 +321,7 @@ wp.directive( "thePostThumbnail", [ function() {
  * <div class="the-id">123</div>
  * ```
  */
-wp.directive( "theId", [ function() {
+.directive( "theId", [ function() {
 	return{
 		restrict:'E',
 		replace: true,
@@ -339,8 +335,7 @@ wp.directive( "theId", [ function() {
 		},
 		template: "<div class=\"the-id\">{{ post_id }}</div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-excerpt
@@ -360,7 +355,7 @@ wp.directive( "theId", [ function() {
  * <div class="the-excerpt"><p>Hello World.</p></div>
  * ```
  */
-wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
+.directive( "theExcerpt", [ '$sce', function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -376,8 +371,7 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
 		template: "<div class=\"the-excerpt\" ng-bind-html=\"excerpt\">"
 						+ "{{ excerpt }}</div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-date
@@ -413,7 +407,7 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
  * <div class="the-date">2016-02-16</div>
  * ```
  */
-wp.directive( "theDate", [ function() {
+.directive( "theDate", [ function() {
 	return{
 		restrict:'E',
 		replace: true,
@@ -433,7 +427,9 @@ wp.directive( "theDate", [ function() {
 		},
 		template: "<div class=\"the-date\">{{ date | date: format }}</div>"
 	}
-} ] );
+} ] )
+
+;
 
 /**
  * @module wp.services
