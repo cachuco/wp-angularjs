@@ -9,6 +9,7 @@
   },
   "author": "Takayuki Miyauchi",
   "license": "MIT",
+  "main": "build/wp-angular.min.js",
   "devDependencies": {
     "angular-mocks": "^1.5.0",
     "dmd": "^1.3.10",

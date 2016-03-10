@@ -414,7 +414,7 @@ angular.module( "wp", [
  * You can set format string like following.
  * See https://docs.angularjs.org/api/ng/filter/date.
  * ```
- * <the-date  format="yyyy/MM/dd"></the-date>
+ * <the-date format="yyyy/MM/dd"></the-date>
  * ```
  * Then you will get like following.
  * ```
