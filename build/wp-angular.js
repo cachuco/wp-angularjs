@@ -23,6 +23,7 @@ angular.module( "wp", [
  * | per-page  | number | The number of posts per page. Default is 10.                   |
  * | offset    | number | The number of post to displace or pass over. Default is 0.     |
  * | post-id   | number | The ID of the post.                                            |
+ * | filter    | object | The object of the filter.                                      |
  *
  * @example
  *
@@ -41,8 +42,26 @@ angular.module( "wp", [
  *   <div class="entry-content"><the-content></the-content></div>
  * </have-posts>
  * ```
+ *
+ * You can pass filters to WP_Query through via the filter parameter.
+ *
+ * Controller:
+ * ```
+ * .controller( 'myController', function( $scope ) {
+ *   $scope.myFilter = {
+ *     category_name: 'my_category_slug'
+ *   };
+ * } )
+ * ```
+ * HTML:
+ * ```html
+ * <have-posts api-root="http://example.com" post-type="posts" filter="myFilter">
+ *   <h2 class="entry-title"><the-title></the-title></h2>
+ *   <div class="entry-content"><the-content></the-content></div>
+ * </have-posts>
+ * ```
  */
-.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
+.directive( "havePosts", [ "WP", function( WP ) {
 	return {
 		restrict: "E",
 		replace: true,
@@ -52,26 +71,26 @@ angular.module( "wp", [
 			postId: '@',
 			apiRoot: '@',
 			perPage: '@',
-			offset: '@'
+			offset: '@',
+			filter: '='
 		},
 		controller: [ "$scope", function( $scope ) {
 			$scope.load = function() {
-				if ( true == $scope.busy ) {
+				if ( $scope.query == $scope.last_query ) {
 					return;
 				}
-				$scope.busy = true;
+				$scope.last_query = $scope.query;
 				if ( $scope.postId ) {
-					wpQuery( $scope.apiRoot ).get( $scope.query ).$promise
+					WP.Query( $scope.apiRoot ).get( $scope.query ).$promise
 							.then( function( posts ) {
-						$scope.busy = true; // disables infinite scroll
 						$scope.posts.push( posts );
 					} );
 				} else {
-					wpQuery( $scope.apiRoot ).query( $scope.query ).$promise
+					WP.Query( $scope.apiRoot ).query( $scope.query ).$promise
 								.then( function( posts ) {
 						if ( posts.length ) {
 							$scope.posts = $scope.posts.concat( posts );
-							$scope.busy = false;
+							$scope.last_query = {};
 							$scope.query.offset = parseInt( $scope.query.offset )
 									+ parseInt( $scope.perPage);
 						}
@@ -95,7 +114,7 @@ angular.module( "wp", [
 						if ( ! scope.offset ) {
 							scope.offset = 0;
 						}
-						scope.query = {
+						var query = {
 							'endpoint': scope.postType,
 							'per_page': scope.perPage,
 							'offset': scope.offset,
@@ -103,10 +122,25 @@ angular.module( "wp", [
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
+
+						scope.query = angular.extend(
+							query,
+							WP.parseFilters( scope.filter )
+						);
 					}
 					scope.load();
 				}
 			}
+		},
+		link: function( $scope ) {
+			$scope.$watch( 'filter', function( newValue ) {
+				$scope.posts = [];
+				scope.query = angular.extend(
+					scope.query,
+					WP.parseFilters( newValue )
+				);
+				scope.load();
+			} );
 		},
 		template: "<div class=\"have-posts\">"
 					+ "<div infinite-scroll=\"load()\""
@@ -414,7 +448,7 @@ angular.module( "wp", [
  * You can set format string like following.
  * See https://docs.angularjs.org/api/ng/filter/date.
  * ```
- * <the-date  format="yyyy/MM/dd"></the-date>
+ * <the-date format="yyyy/MM/dd"></the-date>
  * ```
  * Then you will get like following.
  * ```
@@ -450,14 +484,14 @@ angular.module( "wp", [
  */
 angular.module( "wp.services", [ "ngResource" ] )
 
-/**
- * @name wpQuery
- *
- * @description
- * Gets the WordPress objects from wp-api.
- */
-.factory( "wpQuery", [ "$resource", function( $resource ){
-	return function( apiRoot ) {
+.service( "WP", [ "$resource", function( $resource ) {
+	/**
+	 * @name WP.Query
+	 *
+	 * @description
+	 * Gets the WordPress objects from wp-api.
+	 */
+	this.Query = function( apiRoot ) {
 		var api = apiRoot + "/:endpoint/:id";
 		var params = {
 			endpoint: '@endpoint',
@@ -465,6 +499,16 @@ angular.module( "wp.services", [ "ngResource" ] )
 		};
 		var actions = {};
 		return $resource( api, params, actions );
+	}
+
+	this.parseFilters = function( filters ) {
+
+		var filter_strings = {};
+		for ( var key in filters ) {
+			filter_strings[ 'filter[' + key + ']' ] = filters[key];
+		}
+
+		return filter_strings;
 	}
 } ] )
 

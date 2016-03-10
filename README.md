@@ -75,6 +75,7 @@ The `havePosts` directive is a WordPress loop.
 | per-page  | number | The number of posts per page. Default is 10.                   |
 | offset    | number | The number of post to displace or pass over. Default is 0.     |
 | post-id   | number | The ID of the post.                                            |
+| filter    | object | The object of the filter.                                      |
 
 **Example**  
 ```html
@@ -88,6 +89,24 @@ If you want to get single post, you can use `post-id`.
 
 ```html
 <have-posts api-root="http://example.com" post-type="posts" post-id="123">
+  <h2 class="entry-title"><the-title></the-title></h2>
+  <div class="entry-content"><the-content></the-content></div>
+</have-posts>
+```
+
+You can pass filters to WP_Query through via the filter parameter.
+
+Controller:
+```
+.controller( 'myController', function( $scope ) {
+  $scope.myFilter = {
+    category_name: 'my_category_slug'
+  };
+} )
+```
+HTML:
+```html
+<have-posts api-root="http://example.com" post-type="posts" filter="myFilter">
   <h2 class="entry-title"><the-title></the-title></h2>
   <div class="entry-content"><the-content></the-content></div>
 </have-posts>
@@ -224,7 +243,7 @@ Then you will get like following.
 You can set format string like following.
 See https://docs.angularjs.org/api/ng/filter/date.
 ```
-<the-date  format="yyyy/MM/dd"></the-date>
+<the-date format="yyyy/MM/dd"></the-date>
 ```
 Then you will get like following.
 ```
