@@ -1,11 +1,11 @@
 /**
  * @module wp
  */
-var wp = angular.module( "wp", [
+angular.module( "wp", [
 	"wp.services",
 	"ngResource",
 	"ngSanitize"
-] );
+] )
 
 /**
  * @name have-posts
@@ -22,6 +22,8 @@ var wp = angular.module( "wp", [
  * | post-type | string | `posts` or `pages` or `media` or custom post type.             |
  * | per-page  | number | The number of posts per page. Default is 10.                   |
  * | offset    | number | The number of post to displace or pass over. Default is 0.     |
+ * | post-id   | number | The ID of the post.                                            |
+ * | filter    | object | The object of the filter.                                      |
  *
  * @example
  *
@@ -31,8 +33,26 @@ var wp = angular.module( "wp", [
  *   <div class="entry-content"><the-content></the-content></div>
  * </have-posts>
  * ```
+ *
+ * If you want to get single post, you can use `post-id`.
+ *
+ * ```html
+ * <have-posts api-root="http://example.com" post-type="posts" post-id="123">
+ *   <h2 class="entry-title"><the-title></the-title></h2>
+ *   <div class="entry-content"><the-content></the-content></div>
+ * </have-posts>
+ * ```
+ *
+ * You can pass filters to WP_Query through via the `filter` argument.
+ * ```html
+ * <have-posts api-root="http://example.com" post-type="posts"
+ *            filter="{ order: 'ASC', cat: 123 }">
+ *   <h2 class="entry-title"><the-title></the-title></h2>
+ *   <div class="entry-content"><the-content></the-content></div>
+ * </have-posts>
+ * ```
  */
-wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
+.directive( "havePosts", [ "WP", function( WP ) {
 	return {
 		restrict: "E",
 		replace: true,
@@ -42,23 +62,31 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 			postId: '@',
 			apiRoot: '@',
 			perPage: '@',
-			offset: '@'
+			offset: '@',
+			filter: '='
 		},
 		controller: [ "$scope", function( $scope ) {
 			$scope.load = function() {
-				if ( true == $scope.busy ) {
+				if ( $scope.query == $scope.last_query ) {
 					return;
 				}
-				$scope.busy = true;
-				wpQuery( $scope.apiRoot ).query( $scope.query ).$promise
+				$scope.last_query = $scope.query;
+				if ( $scope.postId ) {
+					WP.Query( $scope.apiRoot ).get( $scope.query ).$promise
 							.then( function( posts ) {
-					if ( posts.length ) {
-						$scope.posts = $scope.posts.concat( posts );
-						$scope.busy = false;
-						$scope.query.offset = parseInt( $scope.query.offset )
-								+ parseInt( $scope.perPage);
-					}
-				} );
+						$scope.posts.push( posts );
+					} );
+				} else {
+					WP.Query( $scope.apiRoot ).query( $scope.query ).$promise
+								.then( function( posts ) {
+						if ( posts.length ) {
+							$scope.posts = $scope.posts.concat( posts );
+							$scope.last_query = {};
+							$scope.query.offset = parseInt( $scope.query.offset )
+									+ parseInt( $scope.perPage);
+						}
+					} );
+				}
 			}
 		} ],
 		compile: function( tElement, tAttrs, transclude ) {
@@ -70,10 +98,6 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 							'endpoint': scope.postType,
 							'id': scope.postId
 						}
-						wpQuery( scope.apiRoot ).get( scope.query ).$promise
-								.then( function( posts ) {
-							scope.posts.push( posts );
-						} );
 					} else {
 						if ( ! scope.perPage ) {
 							scope.perPage = 10;
@@ -81,7 +105,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 						if ( ! scope.offset ) {
 							scope.offset = 0;
 						}
-						scope.query = {
+						var query = {
 							'endpoint': scope.postType,
 							'per_page': scope.perPage,
 							'offset': scope.offset,
@@ -89,10 +113,25 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
-						scope.load();
+
+						scope.query = angular.extend(
+							query,
+							WP.parseFilters( scope.filter )
+						);
 					}
+					scope.load();
 				}
 			}
+		},
+		link: function( $scope ) {
+			$scope.$watch( 'filter', function( newValue ) {
+				$scope.posts = [];
+				scope.query = angular.extend(
+					scope.query,
+					WP.parseFilters( newValue )
+				);
+				scope.load();
+			} );
 		},
 		template: "<div class=\"have-posts\">"
 					+ "<div infinite-scroll=\"load()\""
@@ -102,8 +141,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
 							+ "<div ng-transclude></div></article>"
 								+ "</div></div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-title
@@ -140,7 +178,7 @@ wp.directive( "havePosts", [ "wpQuery", function( wpQuery ) {
  * <div class="the-title"><a href="#/posts/123">Hello World</a></div>
  * ```
  */
-wp.directive( "theTitle", [ "$sce", function( $sce ) {
+.directive( "theTitle", [ "$sce", function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -172,8 +210,7 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
 			}
 		}
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-content
@@ -191,7 +228,7 @@ wp.directive( "theTitle", [ "$sce", function( $sce ) {
  * <div class="the-content"><p>Hello World</p></div>
  * ```
  */
-wp.directive( "theContent", [ "$sce", function( $sce ) {
+.directive( "theContent", [ "$sce", function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -207,8 +244,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
 		template: "<div class=\"the-content\" ng-bind-html=\"content\">"
 						+ "{{ content }}</div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-post-thumbnail
@@ -256,7 +292,7 @@ wp.directive( "theContent", [ "$sce", function( $sce ) {
  * </div>
  * ```
  */
-wp.directive( "thePostThumbnail", [ function() {
+.directive( "thePostThumbnail", [ function() {
 	return{
 		restrict:'E',
 		replace: true,
@@ -305,8 +341,7 @@ wp.directive( "thePostThumbnail", [ function() {
 			}
 		}
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-id
@@ -325,7 +360,7 @@ wp.directive( "thePostThumbnail", [ function() {
  * <div class="the-id">123</div>
  * ```
  */
-wp.directive( "theId", [ function() {
+.directive( "theId", [ function() {
 	return{
 		restrict:'E',
 		replace: true,
@@ -339,8 +374,7 @@ wp.directive( "theId", [ function() {
 		},
 		template: "<div class=\"the-id\">{{ post_id }}</div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-excerpt
@@ -360,7 +394,7 @@ wp.directive( "theId", [ function() {
  * <div class="the-excerpt"><p>Hello World.</p></div>
  * ```
  */
-wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
+.directive( "theExcerpt", [ '$sce', function( $sce ) {
 	return{
 		restrict:'E',
 		replace: true,
@@ -376,8 +410,7 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
 		template: "<div class=\"the-excerpt\" ng-bind-html=\"excerpt\">"
 						+ "{{ excerpt }}</div>"
 	}
-} ] );
-
+} ] )
 
 /**
  * @name the-date
@@ -406,14 +439,14 @@ wp.directive( "theExcerpt", [ '$sce', function( $sce ) {
  * You can set format string like following.
  * See https://docs.angularjs.org/api/ng/filter/date.
  * ```
- * <the-date  format="yyyy/MM/dd"></the-date>
+ * <the-date format="yyyy/MM/dd"></the-date>
  * ```
  * Then you will get like following.
  * ```
  * <div class="the-date">2016-02-16</div>
  * ```
  */
-wp.directive( "theDate", [ function() {
+.directive( "theDate", [ function() {
 	return{
 		restrict:'E',
 		replace: true,
@@ -433,21 +466,23 @@ wp.directive( "theDate", [ function() {
 		},
 		template: "<div class=\"the-date\">{{ date | date: format }}</div>"
 	}
-} ] );
+} ] )
+
+;
 
 /**
  * @module wp.services
  */
 angular.module( "wp.services", [ "ngResource" ] )
 
-/**
- * @name wpQuery
- *
- * @description
- * Gets the WordPress objects from wp-api.
- */
-.factory( "wpQuery", [ "$resource", function( $resource ){
-	return function( apiRoot ) {
+.service( "WP", [ "$resource", function( $resource ) {
+	/**
+	 * @name WP.Query
+	 *
+	 * @description
+	 * Gets the WordPress objects from wp-api.
+	 */
+	this.Query = function( apiRoot ) {
 		var api = apiRoot + "/:endpoint/:id";
 		var params = {
 			endpoint: '@endpoint',
@@ -455,6 +490,16 @@ angular.module( "wp.services", [ "ngResource" ] )
 		};
 		var actions = {};
 		return $resource( api, params, actions );
+	}
+
+	this.parseFilters = function( filters ) {
+
+		var filter_strings = {};
+		for ( var key in filters ) {
+			filter_strings[ 'filter[' + key + ']' ] = filters[key];
+		}
+
+		return filter_strings;
 	}
 } ] )
 

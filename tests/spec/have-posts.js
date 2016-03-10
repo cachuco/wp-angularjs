@@ -76,17 +76,6 @@ describe( 'havePosts directive', function() {
 				date_gmt: '2016-02-16T13:54:13'
 			}
 		] );
-
-		// get singular content
-		$httpBackend.when( 'GET', /\/(posts)|(pages)\/[0-9]+/ ).respond( 200, {
-			id: '3',
-			title: {
-				rendered: 'Title(3)'
-			},
-			content: {
-				rendered: 'Hello World(3)'
-			}
-		} );
 	} ) );
 
 	afterEach(function() {
@@ -166,6 +155,23 @@ describe( 'havePosts directive', function() {
 		$rootScope.$digest();
 		$httpBackend.flush();
 		expect( $rootScope.$$childTail.postType ).toEqual( 'posts' );
+	} ) );
+
+	it( 'orderBy should be "ABC"', inject( function( $rootScope, $compile ) {
+		var html = '<have-posts api-root="' + api + '" post-type="posts"'
+						+ " filter=\"{ 'orderby': 'ABC', cat: 123 }\" />";
+		var element = $compile( html )( $rootScope );
+		$rootScope.$digest();
+		$httpBackend.flush();
+		expect( $rootScope.$$childTail.query ).toEqual( {
+			"endpoint": 'posts',
+			"per_page": 10,
+			"offset": 10,
+			"filter[orderby]": 'ABC',
+			"filter[order]": 'DESC',
+			"_embed": true,
+			"filter[cat]": 123
+		} );
 	} ) );
 
 	it( 'Creates a custom template tag', inject( function( $rootScope, $compile ) {
