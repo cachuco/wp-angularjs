@@ -46,7 +46,7 @@ angular.module( "wp", [
  * You can pass filters to WP_Query through via the `filter` argument.
  * ```html
  * <have-posts api-root="http://example.com" post-type="posts"
- *            filter="{ orderby: 'ASC', cat: 123 }">
+ *            filter="{ order: 'ASC', cat: 123 }">
  *   <h2 class="entry-title"><the-title></the-title></h2>
  *   <div class="entry-content"><the-content></the-content></div>
  * </have-posts>

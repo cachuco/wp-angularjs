@@ -18,7 +18,8 @@
 	<h2><a href="https://github.com/miya0001/wp-angular">GitHub</a></h2>
 </div>
 
-<have-posts api-root="http://api.wp-app.org/wp-json/wp/v2" post-type="posts" per-page="5">
+<have-posts api-root="http://api.wp-app.org/wp-json/wp/v2"
+		post-type="posts" per-page="5" filter="{ orderby: 'date', order: 'DESC'}">
 	<header class="entry-header">
 		<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
 		<h1 class="entry-title"><the-title></the-title></h1>
