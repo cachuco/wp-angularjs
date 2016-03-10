@@ -76,17 +76,6 @@ describe( 'havePosts directive', function() {
 				date_gmt: '2016-02-16T13:54:13'
 			}
 		] );
-
-		// get singular content
-		$httpBackend.when( 'GET', /\/(posts)|(pages)\/[0-9]+/ ).respond( 200, {
-			id: '3',
-			title: {
-				rendered: 'Title(3)'
-			},
-			content: {
-				rendered: 'Hello World(3)'
-			}
-		} );
 	} ) );
 
 	afterEach(function() {

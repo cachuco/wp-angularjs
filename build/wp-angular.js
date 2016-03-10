@@ -22,11 +22,21 @@ angular.module( "wp", [
  * | post-type | string | `posts` or `pages` or `media` or custom post type.             |
  * | per-page  | number | The number of posts per page. Default is 10.                   |
  * | offset    | number | The number of post to displace or pass over. Default is 0.     |
+ * | post-id   | number | The ID of the post.                                            |
  *
  * @example
  *
  * ```html
  * <have-posts api-root="http://example.com" post-type="posts">
+ *   <h2 class="entry-title"><the-title></the-title></h2>
+ *   <div class="entry-content"><the-content></the-content></div>
+ * </have-posts>
+ * ```
+ *
+ * If you want to get single post, you can use `post-id`.
+ *
+ * ```html
+ * <have-posts api-root="http://example.com" post-type="posts" post-id="123">
  *   <h2 class="entry-title"><the-title></the-title></h2>
  *   <div class="entry-content"><the-content></the-content></div>
  * </have-posts>
@@ -50,15 +60,23 @@ angular.module( "wp", [
 					return;
 				}
 				$scope.busy = true;
-				wpQuery( $scope.apiRoot ).query( $scope.query ).$promise
+				if ( $scope.postId ) {
+					wpQuery( $scope.apiRoot ).get( $scope.query ).$promise
 							.then( function( posts ) {
-					if ( posts.length ) {
-						$scope.posts = $scope.posts.concat( posts );
-						$scope.busy = false;
-						$scope.query.offset = parseInt( $scope.query.offset )
-								+ parseInt( $scope.perPage);
-					}
-				} );
+						$scope.busy = true; // disables infinite scroll
+						$scope.posts.push( posts );
+					} );
+				} else {
+					wpQuery( $scope.apiRoot ).query( $scope.query ).$promise
+								.then( function( posts ) {
+						if ( posts.length ) {
+							$scope.posts = $scope.posts.concat( posts );
+							$scope.busy = false;
+							$scope.query.offset = parseInt( $scope.query.offset )
+									+ parseInt( $scope.perPage);
+						}
+					} );
+				}
 			}
 		} ],
 		compile: function( tElement, tAttrs, transclude ) {
@@ -70,10 +88,6 @@ angular.module( "wp", [
 							'endpoint': scope.postType,
 							'id': scope.postId
 						}
-						wpQuery( scope.apiRoot ).get( scope.query ).$promise
-								.then( function( posts ) {
-							scope.posts.push( posts );
-						} );
 					} else {
 						if ( ! scope.perPage ) {
 							scope.perPage = 10;
@@ -89,8 +103,8 @@ angular.module( "wp", [
 							'filter[order]': 'DESC',
 							'_embed': true
 						}
-						scope.load();
 					}
+					scope.load();
 				}
 			}
 		},
