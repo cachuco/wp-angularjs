@@ -51,6 +51,7 @@ angular.module( "wp", [
  *   <div class="entry-content"><the-content></the-content></div>
  * </have-posts>
  * ```
+ * See also: https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
  */
 .directive( "havePosts", [ "WP", function( WP ) {
 	return {
@@ -165,17 +166,21 @@ angular.module( "wp", [
  * ```html
  * <div class="the-title">Hello World</div>
  * ```
- *
  * If you need a link to the post on your app. Please add `href` as attribute.
- *
  * ```html
  * <the-title href="#/posts/:id"></the-title>
  * ```
- * `:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
- *
  * Then:
  * ```html
  * <div class="the-title"><a href="#/posts/123">Hello World</a></div>
+ * ```
+ * `:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
+ * ```html
+ * <the-title href="#/posts/:slug"></the-title>
+ * ```
+ * Then:
+ * ```html
+ * <div class="the-title"><a href="#/posts/hello-world">Hello World</a></div>
  * ```
  */
 .directive( "theTitle", [ "$sce", function( $sce ) {
@@ -268,7 +273,6 @@ angular.module( "wp", [
  * ```
  * <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
  * ```
- *
  * Uses `size` attribute.
  * ```html
  * <the-post-thumbnail size="full"></the-post-thumbnail>
@@ -277,14 +281,21 @@ angular.module( "wp", [
  * ```
  * <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
  * ```
- *
  * If you need a link to the post on your app. Please add `href` as attribute.
- *
  * ```html
  * <the-post-thumbnail href="#/posts/:id"></the-post-thumbnail>
  * ```
+ * Then:
+ * ```html
+ * <div class="the-post-thumbnail">
+ *   <a href="#/posts/123"><img src="http://example.com/image.jpg"></a>
+ * </div>
+ * ```
  * `:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
  *
+ * ```html
+ * <the-post-thumbnail href="#/posts/:slug"></the-post-thumbnail>
+ * ```
  * Then:
  * ```html
  * <div class="the-post-thumbnail">

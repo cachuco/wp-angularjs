@@ -49,7 +49,7 @@ Recommended:
 </html>
 ```
 
-Demo: http://miya0001.github.io/wp-angularjs/demo/
+Demo: http://miya0001.github.io/wp-angular/demo/
 
 ## API Reference
 
@@ -77,7 +77,7 @@ The `havePosts` directive is a WordPress loop.
 | post-id   | number | The ID of the post.                                            |
 | filter    | object | The object of the filter.                                      |
 
-**Example**
+**Example**  
 ```html
 <have-posts api-root="http://example.com" post-type="posts">
   <h2 class="entry-title"><the-title></the-title></h2>
@@ -102,6 +102,7 @@ You can pass filters to WP_Query through via the `filter` argument.
   <div class="entry-content"><the-content></the-content></div>
 </have-posts>
 ```
+See also: https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
 ---
 ### &lt;the-title&gt;
 Displays the post title of the current post.
@@ -112,7 +113,7 @@ Displays the post title of the current post.
 |-----------|--------|----------------------------------------------------------------|
 | href      | string | Specify a link URL like `#/app/posts/:id`.                     |
 
-**Example**
+**Example**  
 ```html
 <the-title></the-title>
 ```
@@ -120,23 +121,27 @@ Then:
 ```html
 <div class="the-title">Hello World</div>
 ```
-
 If you need a link to the post on your app. Please add `href` as attribute.
-
 ```html
 <the-title href="#/posts/:id"></the-title>
 ```
-`:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
-
 Then:
 ```html
 <div class="the-title"><a href="#/posts/123">Hello World</a></div>
+```
+`:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
+```html
+<the-title href="#/posts/:slug"></the-title>
+```
+Then:
+```html
+<div class="the-title"><a href="#/posts/hello-world">Hello World</a></div>
 ```
 ---
 ### &lt;the-content&gt;
 Displays the post content of the current post.
 
-**Example**
+**Example**  
 ```html
 <the-content></the-content>
 ```
@@ -155,7 +160,7 @@ Displays the post thumbnail of the current post.
 | size      | string | Size of the post thumbnail. Default is `full`.                 |
 | href      | string | Specify a link URL like `#/app/posts/:id`.                     |
 
-**Example**
+**Example**  
 ```html
 <the-post-thumbnail></the-post-thumbnail>
 ```
@@ -163,7 +168,6 @@ Then:
 ```
 <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
 ```
-
 Uses `size` attribute.
 ```html
 <the-post-thumbnail size="full"></the-post-thumbnail>
@@ -172,14 +176,21 @@ Then:
 ```
 <div class="the-post-thumbnail"><img src="http://example.com/image.jpg"></div>
 ```
-
 If you need a link to the post on your app. Please add `href` as attribute.
-
 ```html
 <the-post-thumbnail href="#/posts/:id"></the-post-thumbnail>
 ```
+Then:
+```html
+<div class="the-post-thumbnail">
+  <a href="#/posts/123"><img src="http://example.com/image.jpg"></a>
+</div>
+```
 `:id` is a placeholder of the post's id. You can use `:slug` as post's slug too.
 
+```html
+<the-post-thumbnail href="#/posts/:slug"></the-post-thumbnail>
+```
 Then:
 ```html
 <div class="the-post-thumbnail">
@@ -190,7 +201,7 @@ Then:
 ### &lt;the-id&gt;
 Displays the ID of the current post.
 
-**Example**
+**Example**  
 ```
 <the-id></the-id>
 ```
@@ -202,7 +213,7 @@ Then:
 ### &lt;the-excerpt&gt;
 Displays the excerpt of the current post.
 
-**Example**
+**Example**  
 Place the code like following into your HTML.
 ```
 <the-excerpt></the-excerpt>
@@ -221,7 +232,7 @@ Displays the date of the current post.
 |-----------|--------|----------------------------------------------------------------|
 | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
 
-**Example**
+**Example**  
 Place the code like following into your HTML.
 ```
 <the-date></the-date>
