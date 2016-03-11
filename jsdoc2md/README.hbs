@@ -42,7 +42,7 @@ $ npm install wp-angularjs --save
 </html>
 ```
 
-Demo: http://miya0001.github.io/wp-angular/demo/
+Demo: http://miya0001.github.io/wp-angularjs/demo/
 
 ## Requires
 
