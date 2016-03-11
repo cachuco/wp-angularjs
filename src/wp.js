@@ -153,6 +153,7 @@ angular.module( "wp", [
  * @description
  *
  * Displays the post title of the current post.
+ * This tag must be used within The `<have-posts>`.
  *
  * **Attributes**
  *
@@ -224,7 +225,9 @@ angular.module( "wp", [
  * @name the-content
  *
  * @description
+ *
  * Displays the post content of the current post.
+ * This tag must be used within The `<have-posts>`.
  *
  * @example
  *
@@ -258,7 +261,9 @@ angular.module( "wp", [
  * @name the-post-thumbnail
  *
  * @description
+ *
  * Displays the post thumbnail of the current post.
+ * This tag must be used within The `<have-posts>`.
  *
  * **Attributes**
  *
@@ -363,6 +368,7 @@ angular.module( "wp", [
  * @description
  *
  * Displays the ID of the current post.
+ * This tag must be used within The `<have-posts>`.
  *
  * @example
  *
@@ -396,6 +402,7 @@ angular.module( "wp", [
  * @description
  *
  * Displays the excerpt of the current post.
+ * This tag must be used within The `<have-posts>`.
  *
  * @example
  *
@@ -432,6 +439,7 @@ angular.module( "wp", [
  * @description
  *
  * Displays the date of the current post.
+ * This tag must be used within The `<have-posts>`.
  *
  * **Attributes**
  *

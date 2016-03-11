@@ -112,6 +112,7 @@ through via the `filter` argument.
 ---
 ### &lt;the-title&gt;
 Displays the post title of the current post.
+This tag must be used within The `<have-posts>`.
 
 **Attributes**
 
@@ -146,6 +147,7 @@ Then:
 ---
 ### &lt;the-content&gt;
 Displays the post content of the current post.
+This tag must be used within The `<have-posts>`.
 
 **Example**  
 ```html
@@ -158,6 +160,7 @@ Then:
 ---
 ### &lt;the-post-thumbnail&gt;
 Displays the post thumbnail of the current post.
+This tag must be used within The `<have-posts>`.
 
 **Attributes**
 
@@ -206,6 +209,7 @@ Then:
 ---
 ### &lt;the-id&gt;
 Displays the ID of the current post.
+This tag must be used within The `<have-posts>`.
 
 **Example**  
 ```
@@ -218,6 +222,7 @@ Then:
 ---
 ### &lt;the-excerpt&gt;
 Displays the excerpt of the current post.
+This tag must be used within The `<have-posts>`.
 
 **Example**  
 Place the code like following into your HTML.
@@ -231,6 +236,7 @@ Then you will get like following.
 ---
 ### &lt;the-date&gt;
 Displays the date of the current post.
+This tag must be used within The `<have-posts>`.
 
 **Attributes**
 
