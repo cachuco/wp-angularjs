@@ -49,7 +49,7 @@ Recommended:
 </html>
 ```
 
-Demo: http://miya0001.github.io/wp-angular/demo/
+Demo: http://miya0001.github.io/wp-angularjs/demo/
 
 ## API Reference
 
@@ -77,7 +77,7 @@ The `havePosts` directive is a WordPress loop.
 | post-id   | number | The ID of the post.                                            |
 | filter    | object | The object of the filter.                                      |
 
-**Example**  
+**Example**
 ```html
 <have-posts api-root="http://example.com" post-type="posts">
   <h2 class="entry-title"><the-title></the-title></h2>
@@ -112,7 +112,7 @@ Displays the post title of the current post.
 |-----------|--------|----------------------------------------------------------------|
 | href      | string | Specify a link URL like `#/app/posts/:id`.                     |
 
-**Example**  
+**Example**
 ```html
 <the-title></the-title>
 ```
@@ -136,7 +136,7 @@ Then:
 ### &lt;the-content&gt;
 Displays the post content of the current post.
 
-**Example**  
+**Example**
 ```html
 <the-content></the-content>
 ```
@@ -155,7 +155,7 @@ Displays the post thumbnail of the current post.
 | size      | string | Size of the post thumbnail. Default is `full`.                 |
 | href      | string | Specify a link URL like `#/app/posts/:id`.                     |
 
-**Example**  
+**Example**
 ```html
 <the-post-thumbnail></the-post-thumbnail>
 ```
@@ -190,7 +190,7 @@ Then:
 ### &lt;the-id&gt;
 Displays the ID of the current post.
 
-**Example**  
+**Example**
 ```
 <the-id></the-id>
 ```
@@ -202,7 +202,7 @@ Then:
 ### &lt;the-excerpt&gt;
 Displays the excerpt of the current post.
 
-**Example**  
+**Example**
 Place the code like following into your HTML.
 ```
 <the-excerpt></the-excerpt>
@@ -221,7 +221,7 @@ Displays the date of the current post.
 |-----------|--------|----------------------------------------------------------------|
 | format    | string | See https://docs.angularjs.org/api/ng/filter/date              |
 
-**Example**  
+**Example**
 Place the code like following into your HTML.
 ```
 <the-date></the-date>
