@@ -95,6 +95,7 @@ If you want to get single post, you can use `post-id`.
 ```
 
 You can pass filters to WP_Query through via the `filter` argument.
+
 ```html
 <have-posts api-root="http://example.com" post-type="posts"
            filter="{ order: 'ASC', cat: 123 }">
@@ -102,7 +103,10 @@ You can pass filters to WP_Query through via the `filter` argument.
   <div class="entry-content"><the-content></the-content></div>
 </have-posts>
 ```
-See also: https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
+See more details:
+
+* https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
+* http://v2.wp-api.org/
 ---
 ### &lt;the-title&gt;
 Displays the post title of the current post.
