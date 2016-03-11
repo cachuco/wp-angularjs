@@ -54,8 +54,8 @@ angular.module( "wp", [
  * ```
  * See more details:
  *
- * - http://v2.wp-api.org/
- * - https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
+ * * http://v2.wp-api.org/
+ * * https://codex.wordpress.org/Class_Reference/WP_Query%23Parameters
  *
  */
 .directive( "havePosts", [ "WP", function( WP ) {
