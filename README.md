@@ -109,8 +109,8 @@ You can pass filters to WP_Query through via the `filter` argument.
 ```
 See more details:
 
-- http://v2.wp-api.org/
-- https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
+* http://v2.wp-api.org/
+* https://codex.wordpress.org/Class_Reference/WP_Query%23Parameters
 ---
 ### &lt;the-title&gt;
 Displays the post title of the current post.
