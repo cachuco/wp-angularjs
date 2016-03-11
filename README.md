@@ -1,6 +1,6 @@
 # wp-angularjs
 
-[![Build Status](https://travis-ci.org/miya0001/wp-angular.svg?branch=master)](https://travis-ci.org/miya0001/wp-angular)
+[![Build Status](https://travis-ci.org/miya0001/wp-angularjs.svg?branch=master)](https://travis-ci.org/miya0001/wp-angularjs)
 
 A WP-API client for [AngularJS](https://angularjs.org/).
 
@@ -109,8 +109,8 @@ You can pass filters to WP_Query through via the `filter` argument.
 ```
 See more details:
 
-* https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
 * http://v2.wp-api.org/
+* https://codex.wordpress.org/Class_Reference/WP_Query#Parameters
 ---
 ### &lt;the-title&gt;
 Displays the post title of the current post.
