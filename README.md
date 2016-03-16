@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/miya0001/wp-angularjs.svg?branch=master)](https://travis-ci.org/miya0001/wp-angularjs)
 
-A WP-API client for [AngularJS](https://angularjs.org/).
-
-This project is in progress...
+A WP-API Client for [AngularJS](https://angularjs.org/).
 
 ## Getting Started
 
