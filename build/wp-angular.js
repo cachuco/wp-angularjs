@@ -137,13 +137,38 @@ angular.module( "wp", [
 				scope.load();
 			} );
 		},
-		template: "<div class=\"have-posts\">"
-					+ "<div infinite-scroll=\"load()\""
-								+ " infinite-scroll-distance=\"2\">"
-					+ "<article class=\"{{ postType }}"
-						+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
+		template: function( tElement, tAttrs ) {
+			try {
+				if ( !! angular.module( 'infinite-scroll' ) ) {
+					return "<div class=\"have-posts\">"
+							+ "<div infinite-scroll=\"load()\""
+							+ " infinite-scroll-distance=\"2\">"
+							+ "<article class=\"{{ postType }}"
+							+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
 							+ "<div ng-transclude></div></article>"
-								+ "</div></div>"
+							+ "</div></div>";
+				}
+			} catch( e ) {
+				try {
+					if ( !! angular.module( 'ionic' ) ) {
+						return "<div class=\"have-posts\">"
+								+ "<article class=\"{{ postType }}"
+								+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
+								+ "<div ng-transclude></div></article>"
+								+ "</div>"
+								+ "<ion-infinite-scroll"
+								+ "on-infinite=\"loadMore()\""
+								+ "distance=\"1%\"></ion-infinite-scroll>";
+					}
+				} catch (e) {
+					return "<div class=\"have-posts\">"
+							+ "<article class=\"{{ postType }}"
+							+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
+							+ "<div ng-transclude></div></article>"
+							+ "</div>";
+				}
+			}
+		}
 	}
 } ] )
 
