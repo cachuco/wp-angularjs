@@ -165,6 +165,7 @@ angular.module( "wp", [
 								+ "<ion-infinite-scroll"
 								+ " ng-if=\"is_nextpage\""
 								+ " on-infinite=\"load()\""
+								+ " immediate-check=\"false\""
 								+ " distance=\"1%\">"
 								+ "</ion-infinite-scroll>"
 								+ "</div>";
