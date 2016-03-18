@@ -106,7 +106,8 @@ angular.module( "wp", [
 					if ( scope.postId ) {
 						scope.query = {
 							'endpoint': scope.postType,
-							'id': scope.postId
+							'id': scope.postId,
+							'_embed': true
 						}
 					} else {
 						if ( ! scope.perPage ) {

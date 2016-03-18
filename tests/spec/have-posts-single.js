@@ -55,7 +55,7 @@ describe( 'havePosts directive', function() {
 		$rootScope.$digest();
 		$httpBackend.flush();
 		expect( $rootScope.$$childTail.query )
-				.toEqual( { endpoint: 'posts', id: '3' } );
+				.toEqual( { endpoint: 'posts', id: '3', _embed: true } );
 	} ) );
 
 	it( 'template tag should be working',
