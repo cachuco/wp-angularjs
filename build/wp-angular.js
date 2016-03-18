@@ -157,8 +157,8 @@ angular.module( "wp", [
 								+ "<div ng-transclude></div></article>"
 								+ "</div>"
 								+ "<ion-infinite-scroll"
-								+ "on-infinite=\"loadMore()\""
-								+ "distance=\"1%\"></ion-infinite-scroll>";
+								+ "on-infinite=\"load()\""
+								+ "distance=\"10%\"></ion-infinite-scroll>";
 					}
 				} catch (e) {
 					return "<div class=\"have-posts\">"
