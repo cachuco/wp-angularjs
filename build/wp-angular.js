@@ -80,6 +80,14 @@ angular.module( "wp", [
 							.then( function( posts ) {
 						$scope.posts.push( posts );
 					} );
+				} else if ( $scope.filter && $scope.filter.name ) {
+					WP.Query( $scope.apiRoot ).query( $scope.query ).$promise
+								.then( function( posts ) {
+						if ( posts.length ) {
+							$scope.is_nextpage = false;
+							$scope.posts = posts;
+						}
+					} );
 				} else {
 					WP.Query( $scope.apiRoot ).query( $scope.query ).$promise
 								.then( function( posts ) {
