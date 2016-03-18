@@ -84,10 +84,16 @@ angular.module( "wp", [
 					WP.Query( $scope.apiRoot ).query( $scope.query ).$promise
 								.then( function( posts ) {
 						if ( posts.length ) {
+							$scope.is_nextpage = true;
 							$scope.posts = $scope.posts.concat( posts );
 							$scope.last_query = {};
 							$scope.query.offset = parseInt( $scope.query.offset )
 									+ parseInt( $scope.perPage);
+							// for ionic framework
+							$scope.$broadcast( 'scroll.infiniteScrollComplete' );
+							$scope.$broadcast( 'scroll.refreshComplete');
+						} else {
+							$scope.is_nextpage = false;
 						}
 					} );
 				}
@@ -142,7 +148,8 @@ angular.module( "wp", [
 				if ( !! angular.module( 'infinite-scroll' ) ) {
 					return "<div class=\"have-posts\">"
 							+ "<div infinite-scroll=\"load()\""
-							+ " infinite-scroll-distance=\"2\">"
+							+ " infinite-scroll-immediate-check=\"false\""
+							+ " infinite-scroll-distance=\"1\">"
 							+ "<article class=\"{{ postType }}"
 							+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
 							+ "<div ng-transclude></div></article>"
@@ -155,12 +162,14 @@ angular.module( "wp", [
 								+ "<article class=\"{{ postType }}"
 								+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
 								+ "<div ng-transclude></div></article>"
-								+ "</div>"
 								+ "<ion-infinite-scroll"
-								+ "on-infinite=\"load()\""
-								+ "distance=\"10%\"></ion-infinite-scroll>";
+								+ " ng-if=\"is_nextpage\""
+								+ " on-infinite=\"load()\""
+								+ " distance=\"1%\">"
+								+ "</ion-infinite-scroll>"
+								+ "</div>";
 					}
-				} catch (e) {
+				} catch( e ) {
 					return "<div class=\"have-posts\">"
 							+ "<article class=\"{{ postType }}"
 							+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"

@@ -1,6 +1,6 @@
 {
   "name": "wp-angularjs",
-  "version": "0.1.1",
+  "version": "1.2.0",
   "description": "WP-API client for AngularJS",
   "scripts": {
     "build": "npm test && npm run docs",
