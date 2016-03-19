@@ -11,33 +11,14 @@ $ npm install wp-angularjs --save
 ```
 
 ```html
-<!DOCTYPE html>
-<html ng-app="wp">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="path/to/style.css">
-	<title>WP-Angular</title>
-	<script src="path/to/angularjs/1.5.0/angular.min.js"></script>
-	<script src="path/to/angularjs/1.5.0/angular-resource.min.js"></script>
-	<script src="path/to/angularjs/1.5.0/angular-sanitize.min.js"></script>
-	<script src="path/to/wp-angular.min.js"></script>
-</head>
-<body>
-	<have-posts api-root="http://example.com/wp-json/wp/v2"
-						post-type="posts" offset="0" per-page="5">
-		<header class="entry-header">
-			<the-post-thumbnail size="post-thumbnaiil"></the-post-thumbnail>
-			<h1 class="entry-title"><the-title></the-title></h1>
-			<div class="entry-meta">
-				<the-date format="yyyy/mm/dd"></the-date>
-			</div>
-		</header>
-		<div class="entry-content">
-			<the-content></the-content>
-		</div>
-	</have-posts>
-</body>
-</html>
+<have-posts api-root="http://example.com/wp-json/wp/v2"
+					post-type="posts" per-page="5">
+	<the-post-thumbnail></the-post-thumbnail>
+	<h1 class="entry-title"><the-title href="#/posts/:id"></the-title></h1>
+	<div class="entry-meta">
+		<the-date format="yyyy/MM/dd"></the-date>
+	</div>
+</have-posts>
 ```
 
 Demo: http://miya0001.github.io/wp-angularjs/demo/
