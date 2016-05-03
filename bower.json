@@ -1,0 +1,17 @@
+{
+  "name": "wp-angularjs",
+  "description": "WP-API client for AngularJS",
+  "main": "build/wp-angular.min.js",
+  "authors": [
+    "Takayuki Miyauchi"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/miya0001/wp-angularjs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
