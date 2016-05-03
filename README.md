@@ -10,6 +10,12 @@ A WP-API Client for [AngularJS](https://angularjs.org/).
 $ npm install wp-angularjs --save
 ```
 
+Or
+
+```
+$ bower install wp-angularjs --save
+```
+
 ```html
 <have-posts api-root="http://example.com/wp-json/wp/v2"
 					post-type="posts" per-page="5">
@@ -315,4 +321,3 @@ Build documentation.
 ```
 $ npm run docs
 ```
-
