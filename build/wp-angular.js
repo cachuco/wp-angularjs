@@ -191,6 +191,7 @@ angular.module( "wp", [
 	}
 } ] )
 
+
 /**
  * @name the-title
  *
@@ -366,7 +367,7 @@ angular.module( "wp", [
 					if ( ! attrs.size ) {
 						attrs.size = 'post-thumbnail';
 					}
-					var scheme = 'https://api.w.org/featuredmedia';
+					var scheme = 'wp:featuredmedia';
 					var _embedded = scope.$parent.post._embedded;
 					var img;
 					if ( _embedded && _embedded[scheme] && _embedded[scheme].length ) {
@@ -402,6 +403,98 @@ angular.module( "wp", [
 				return "<div class=\"the-post-thumbnail\">"
 							+ "<img ng-src=\"{{ image_src }}\"></div>"
 			}
+		}
+	}
+} ] )
+
+
+.directive( "theAuthor", [ function() {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					var scheme = 'author';
+					var _embedded = scope.$parent.post._embedded;
+					var author;
+
+					if ( _embedded && _embedded[scheme] && _embedded[scheme].length ) {
+						author = _embedded[scheme][0].name;
+					}
+					if ( author ) {
+						scope.author = author;
+					}
+				}
+			}
+		},
+		template: function( tElement, tAttrs ) {
+			return "<div class=\"the-post-author\">{{ author }}</div>"
+		}
+	}
+} ] )
+
+
+.directive( "theCategories", [ function() {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					var scheme = 'wp:term';
+					var _embedded = scope.$parent.post._embedded;
+					var categories = [];
+
+					if ( _embedded && _embedded[scheme][0] && _embedded[scheme][0].length ) {
+						for(var i=0 in _embedded[scheme][0]) {
+							categories.push(_embedded[scheme][0][i].name);	
+						}
+					}
+					if ( categories ) {
+						scope.categories = categories;
+					}
+				}
+			}
+		},
+		template: function( tElement, tAttrs ) {
+			return "<ul class=\"the-categories\">"
+					+ "<li ng-repeat=\"cat in categories\">{{ cat }}</li>"
+					+ "</ul>";
+		}
+	}
+} ] )
+
+
+.directive( "theTags", [ function() {
+	return{
+		restrict:'E',
+		replace: true,
+		require : '^havePosts',
+		compile: function( tElement, tAttrs, transclude ) {
+			return {
+				post: function postLink( scope, element, attrs, controller ) {
+					var scheme = 'wp:term';
+					var _embedded = scope.$parent.post._embedded;
+					var tags = [];
+
+					if ( _embedded && _embedded[scheme][1] && _embedded[scheme][1].length ) {
+						for(var i=0 in _embedded[scheme][1]) {
+							tags.push(_embedded[scheme][1][i].name);	
+						}
+					}
+					if ( tags ) {
+						scope.tags = tags;
+					}
+				}
+			}
+		},
+		template: function( tElement, tAttrs ) {
+			return "<ul class=\"the-tags\">"
+					+ "<li ng-repeat=\"tag in tags\">{{ tag }}</li>"
+					+ "</ul>";
 		}
 	}
 } ] )
